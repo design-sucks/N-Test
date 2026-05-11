@@ -1,0 +1,5002 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Нотариат — 288 вопросов</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Нотариат">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iIzJENUJFMyIvPjx0ZXh0IHg9IjI1NiIgeT0iMzMwIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0J08L3RleHQ+PC9zdmc+">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --surface2: #F0EEE8;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --text: #1A1917;
+    --text2: #6B6A66;
+    --text3: #9C9B97;
+    --accent: #2D5BE3;
+    --accent-bg: #EEF2FD;
+    --success: #1A7A4A;
+    --success-bg: #E6F5ED;
+    --success-border: #A3D9BC;
+    --error: #B83232;
+    --error-bg: #FCEAEA;
+    --error-border: #F0ABAB;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --header-h: 68px;
+  }
+
+
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
+
+
+
+  /* ── STATS SCREEN ── */
+  #stats-screen { min-height: 100vh; background: var(--bg); }
+
+  .stats-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+  }
+  .stats-header-title { font-size: 16px; font-weight: 700; }
+  .stats-back, .stats-reset {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Manrope', sans-serif; font-size: 14px;
+    font-weight: 600; color: var(--accent); padding: 0;
+  }
+  .stats-reset { color: var(--error); }
+
+  .stats-body { padding: 16px 16px 80px; max-width: 520px; margin: 0 auto; }
+
+  .stat-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--text2); margin-bottom: 14px;
+  }
+
+  /* accuracy ring */
+  .accuracy-hero { display: flex; align-items: center; gap: 20px; }
+  .acc-ring-wrap { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+  .acc-ring { width: 120px; height: 120px; }
+  .acc-ring-label {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .acc-pct { font-size: 22px; font-weight: 700; line-height: 1; }
+  .acc-lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .acc-meta { display: flex; flex-direction: column; gap: 8px; }
+  .acc-meta-row { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot.green { background: var(--success); }
+  .dot.red { background: var(--error); }
+  .dot.blue { background: var(--accent); }
+
+  /* bars */
+  .mastery-bar-wrap { }
+  .mastery-labels { display: flex; justify-content: space-between; font-size: 14px; font-weight: 500; margin-bottom: 7px; }
+  .mastery-pct { font-weight: 700; color: var(--accent); }
+  .mastery-sub { font-size: 12px; color: var(--text3); margin-top: 5px; line-height: 1.4; }
+  .bar-track { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.8s cubic-bezier(.4,0,.2,1); }
+  .green-fill { background: var(--success); }
+  .blue-fill { background: var(--accent); }
+  .red-fill { background: var(--error); }
+
+  /* mode grid */
+  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .mode-stat-card {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+  }
+  .ms-icon { font-size: 20px; margin-bottom: 4px; }
+  .ms-name { font-size: 12px; font-weight: 700; color: var(--text2); margin-bottom: 4px; }
+  .ms-sessions { font-size: 13px; font-weight: 600; color: var(--text); }
+  .ms-best { font-size: 20px; font-weight: 700; color: var(--accent); margin: 4px 0; }
+  .ms-bar-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+  .ms-bar { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
+
+  /* hard questions */
+  .hard-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .hard-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .hard-num {
+    flex-shrink: 0; width: 28px; height: 28px;
+    background: var(--error-bg); color: var(--error);
+    border-radius: 6px; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hard-q { flex: 1; font-size: 13px; line-height: 1.4; color: var(--text); }
+  .hard-badge {
+    flex-shrink: 0; font-size: 11px; font-weight: 700;
+    color: var(--error); background: var(--error-bg);
+    border-radius: 20px; padding: 2px 8px; white-space: nowrap;
+  }
+
+  /* history */
+  .history-rows { display: flex; flex-direction: column; gap: 10px; }
+  .history-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; color: var(--text2);
+  }
+  .history-row b { color: var(--text); font-weight: 600; }
+
+  .stats-card { border-color: var(--accent); }
+  .stats-card .mc-name { color: var(--accent); }
+
+
+  /* ── LOCK SCREEN ── */
+  #lock-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .lock-wrap {
+    width: 100%; max-width: 340px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+  }
+  .lock-icon { font-size: 52px; margin-bottom: 16px; }
+  .lock-title { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .lock-sub { font-size: 14px; color: var(--text2); margin-bottom: 28px; }
+  .lock-field-wrap {
+    position: relative; width: 100%; margin-bottom: 10px;
+  }
+  .lock-input {
+    width: 100%; height: 52px;
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 0 48px 0 16px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px; font-weight: 500;
+    background: var(--surface); color: var(--text);
+    outline: none; box-sizing: border-box;
+    transition: border-color 0.15s;
+  }
+  .lock-input:focus { border-color: var(--accent); }
+  .lock-input.shake {
+    animation: shake 0.4s ease;
+    border-color: var(--error);
+  }
+  .lock-eye {
+    position: absolute; right: 0; top: 0;
+    width: 52px; height: 52px;
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; display: flex; align-items: center; justify-content: center;
+  }
+  .lock-error {
+    font-size: 13px; color: var(--error);
+    font-weight: 600; min-height: 18px; margin-bottom: 14px;
+  }
+  .lock-btn {
+    width: 100%; height: 52px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: var(--radius-sm);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px; font-weight: 700;
+    cursor: pointer; transition: opacity 0.15s;
+  }
+  .lock-btn:active { opacity: 0.85; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-8px)}
+    40%{transform:translateX(8px)}
+    60%{transform:translateX(-6px)}
+    80%{transform:translateX(6px)}
+  }
+
+  /* ── MENU ── */
+  #menu-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 0 40px;
+  }
+  .menu-wrap {
+    width: 100%;
+    max-width: 520px;
+    padding: 60px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .menu-logo {
+    width: 80px; height: 80px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; font-weight: 700;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 20px rgba(45,91,227,0.25);
+  }
+  .menu-title {
+    font-size: 26px; font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .menu-sub {
+    font-size: 14px; color: var(--text2);
+    text-align: center; margin-bottom: 32px;
+    line-height: 1.4;
+  }
+  .menu-cards { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .menu-card {
+    width: 100%;
+    background: var(--surface);
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+    font-family: 'Manrope', sans-serif;
+    text-align: left;
+  }
+  .menu-card:active { transform: scale(0.985); }
+  .menu-card:hover { border-color: var(--accent); box-shadow: 0 2px 12px rgba(45,91,227,0.1); }
+  .menu-card.disabled { opacity: 0.45; cursor: default; }
+  .mc-icon { font-size: 28px; flex-shrink: 0; width: 40px; text-align: center; }
+  .mc-body { flex: 1; }
+  .mc-name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .mc-desc { font-size: 13px; color: var(--text2); }
+  .mc-arrow { font-size: 22px; color: var(--text3); flex-shrink: 0; }
+  .menu-stats {
+    margin-top: 24px;
+    font-size: 13px; color: var(--text3);
+    text-align: center; line-height: 1.7;
+  }
+
+  /* ── TIMER ── */
+  .timer-pill {
+    font-size: 13px; font-weight: 600;
+    background: var(--surface2);
+    border-radius: 20px; padding: 4px 12px;
+    color: var(--text2);
+  }
+  .timer-pill.danger b { color: var(--error); }
+  .timer-pill b { color: var(--text); }
+
+  /* ── MENU BTN ── */
+  .btn-menu {
+    background: var(--surface2);
+    color: var(--text);
+    flex: 0 0 52px;
+    font-size: 18px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px 0;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .q-counter {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    letter-spacing: 0.01em;
+  }
+  .q-counter span {
+    color: var(--text);
+  }
+  .score-pill {
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--surface2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    color: var(--text2);
+  }
+  .score-pill b { color: var(--success); }
+  .progress-track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── MAIN ── */
+  .main {
+    padding: 20px 16px 100px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .q-type-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+
+  .option {
+    background: var(--surface);
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .option:active { transform: scale(0.985); }
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+  }
+  .option.correct {
+    border-color: var(--success-border);
+    background: var(--success-bg);
+  }
+  .option.wrong {
+    border-color: var(--error-border);
+    background: var(--error-bg);
+  }
+  .option.missed {
+    border-color: var(--success-border);
+    background: var(--success-bg);
+  }
+  .option.disabled { cursor: default; }
+
+  .opt-marker {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text3);
+    transition: all 0.15s;
+    margin-top: 1px;
+  }
+  .option.selected .opt-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .option.correct .opt-marker,
+  .option.missed .opt-marker {
+    background: var(--success);
+    border-color: var(--success);
+    color: #fff;
+  }
+  .option.wrong .opt-marker {
+    background: var(--error);
+    border-color: var(--error);
+    color: #fff;
+  }
+  /* radio style for single */
+  .single-mode .opt-marker { border-radius: 50%; }
+
+  .opt-text {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--text);
+    flex: 1;
+  }
+  .option.correct .opt-text { color: var(--success); }
+  .option.wrong .opt-text { color: var(--error); }
+  .option.missed .opt-text { color: var(--success); }
+
+  /* ── RESULT BANNER ── */
+  .result-banner {
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    display: none;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .result-banner.correct {
+    display: block;
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+  }
+  .result-banner.wrong {
+    display: block;
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid var(--error-border);
+  }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+  }
+  .btn {
+    flex: 1;
+    height: 52px;
+    border-radius: var(--radius-sm);
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.97); opacity: 0.85; }
+  .btn-nav {
+    background: var(--surface2);
+    color: var(--text);
+    flex: 0 0 52px;
+    font-size: 20px;
+  }
+  .btn-check {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-next {
+    background: var(--text);
+    color: var(--bg);
+    display: none;
+  }
+
+  /* ── FINISH SCREEN ── */
+  #finish-screen {
+    display: none;
+    padding: 40px 16px 120px;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .finish-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+  }
+  .finish-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .finish-sub {
+    font-size: 15px;
+    color: var(--text2);
+    margin-bottom: 32px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .stat-value.green { color: var(--success); }
+  .stat-value.red { color: var(--error); }
+  .stat-value.accent { color: var(--accent); }
+
+  .wrong-list-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text2);
+    margin-bottom: 12px;
+    text-align: left;
+  }
+  .wrong-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 32px;
+    justify-content: flex-start;
+  }
+  .wrong-pill {
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid var(--error-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .btn-restart {
+    width: 100%;
+    height: 56px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: opacity 0.15s;
+  }
+  .btn-restart:active { opacity: 0.85; }
+
+  .btn-restart-wrong {
+    width: 100%;
+    height: 52px;
+    background: transparent;
+    color: var(--text2);
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius);
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-restart-wrong:active { opacity: 0.75; }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-wrap">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">Нотариат</div>
+    <div class="lock-sub">Введите пароль для входа</div>
+    <div class="lock-field-wrap">
+      <input id="lock-input" type="password" placeholder="Пароль"
+        autocomplete="current-password" autocorrect="off" autocapitalize="off"
+        onkeydown="if(event.key==='Enter')checkPassword()"
+        class="lock-input"/>
+      <button class="lock-eye" onclick="toggleEye()" id="lock-eye">👁</button>
+    </div>
+    <div class="lock-error" id="lock-error"></div>
+    <button class="lock-btn" onclick="checkPassword()">Войти</button>
+  </div>
+</div>
+
+
+
+<!-- MENU SCREEN -->
+<div id="menu-screen">
+  <div class="menu-wrap">
+    <div class="menu-logo">Н</div>
+    <div class="menu-title">Нотариат</div>
+    <div class="menu-sub">288 вопросов для подготовки к экзамену</div>
+
+    <div class="menu-cards">
+      <button class="menu-card" onclick="startMode('express')">
+        <div class="mc-icon">⚡</div>
+        <div class="mc-body">
+          <div class="mc-name">Экспресс-повтор</div>
+          <div class="mc-desc">25 случайных вопросов</div>
+        </div>
+        <div class="mc-arrow">›</div>
+      </button>
+
+      <button class="menu-card" onclick="startMode('exam')">
+        <div class="mc-icon">🎯</div>
+        <div class="mc-body">
+          <div class="mc-name">Экзамен</div>
+          <div class="mc-desc">100 вопросов · 60 минут</div>
+        </div>
+        <div class="mc-arrow">›</div>
+      </button>
+
+      <button class="menu-card" id="menu-errors-btn" onclick="startMode('errors')">
+        <div class="mc-icon">🔁</div>
+        <div class="mc-body">
+          <div class="mc-name">Повтор ошибок</div>
+          <div class="mc-desc" id="menu-errors-desc">Загрузка...</div>
+        </div>
+        <div class="mc-arrow">›</div>
+      </button>
+
+      <button class="menu-card" onclick="startMode('all')">
+        <div class="mc-icon">📚</div>
+        <div class="mc-body">
+          <div class="mc-name">Повторить все</div>
+          <div class="mc-desc">Все 288 вопросов по порядку</div>
+        </div>
+        <div class="mc-arrow">›</div>
+      </button>
+
+      <button class="menu-card stats-card" onclick="showStats()">
+        <div class="mc-icon">📊</div>
+        <div class="mc-body">
+          <div class="mc-name">Статистика</div>
+          <div class="mc-desc" id="menu-stats-desc">Ваш прогресс и результаты</div>
+        </div>
+        <div class="mc-arrow">›</div>
+      </button>
+    </div>
+
+    <div class="menu-stats" id="menu-stats"></div>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+<div id="quiz-screen" style="display:none">
+  <header class="header">
+    <div class="header-top">
+      <div class="q-counter">Вопрос <span id="q-num">1</span> из <span id="q-total">1</span></div>
+      <div class="score-pill">Верно: <b id="score-display">0</b></div>
+      <div class="timer-pill" id="timer-pill" style="display:none">⏱ <b id="timer-display">60:00</b></div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="q-card">
+      <div class="q-type-badge" id="q-type-badge"></div>
+      <div class="q-text" id="q-text"></div>
+    </div>
+    <div class="options" id="options-container"></div>
+    <div class="result-banner" id="result-banner"></div>
+  </main>
+
+  <div class="btn-row">
+    <button class="btn btn-menu" id="btn-menu" onclick="goToMenu()" title="Меню">☰</button>
+    <button class="btn btn-nav" id="btn-prev" onclick="goToPrev()" title="Назад">←</button>
+    <button class="btn btn-check" id="btn-check" onclick="checkAnswer()">Проверить</button>
+    <button class="btn btn-next" id="btn-next" onclick="goToNext()">Дальше →</button>
+    <button class="btn btn-nav" id="btn-fwd" onclick="goToNext(true)" title="Вперёд">→</button>
+  </div>
+</div>
+
+
+<!-- STATS SCREEN -->
+<div id="stats-screen" style="display:none">
+  <div class="stats-header">
+    <button class="stats-back" onclick="showMenu()">← Меню</button>
+    <div class="stats-header-title">Статистика</div>
+    <button class="stats-reset" onclick="resetStats()">Сбросить</button>
+  </div>
+
+  <div class="stats-body">
+
+    <!-- Точность -->
+    <div class="stat-section">
+      <div class="accuracy-hero">
+        <div class="acc-ring-wrap">
+          <svg class="acc-ring" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="10"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--accent)" stroke-width="10"
+              stroke-linecap="round" stroke-dasharray="314"
+              id="acc-ring-fill" stroke-dashoffset="314"
+              transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1s ease"/>
+          </svg>
+          <div class="acc-ring-label">
+            <div class="acc-pct" id="stat-acc-pct">0%</div>
+            <div class="acc-lbl">точность</div>
+          </div>
+        </div>
+        <div class="acc-meta">
+          <div class="acc-meta-row"><span class="dot green"></span><span id="stat-total-correct">0</span> верно</div>
+          <div class="acc-meta-row"><span class="dot red"></span><span id="stat-total-wrong">0</span> неверно</div>
+          <div class="acc-meta-row"><span class="dot blue"></span><span id="stat-sessions">0</span> сессий</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Освоение вопросов -->
+    <div class="stat-section">
+      <div class="section-title">Освоение вопросов</div>
+      <div class="mastery-bar-wrap">
+        <div class="mastery-labels">
+          <span id="stat-mastered-n">0</span>/<span>288</span>
+          <span class="mastery-pct" id="stat-mastered-pct">0%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill green-fill" id="bar-mastered" style="width:0%"></div></div>
+        <div class="mastery-sub">Вопросы, на которые вы отвечали верно чаще чем неверно (≥2 раза)</div>
+      </div>
+
+      <div class="mastery-bar-wrap" style="margin-top:14px">
+        <div class="mastery-labels">
+          <span>Встречено вопросов: <b id="stat-seen-n">0</b> из 288</span>
+          <span class="mastery-pct" id="stat-seen-pct">0%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill blue-fill" id="bar-seen" style="width:0%"></div></div>
+      </div>
+
+      <div class="mastery-bar-wrap" style="margin-top:14px">
+        <div class="mastery-labels">
+          <span>Накоплено ошибок: <b id="stat-errors-n">0</b></span>
+          <span class="mastery-pct" id="stat-errors-pct"></span>
+        </div>
+        <div class="bar-track"><div class="bar-fill red-fill" id="bar-errors" style="width:0%"></div></div>
+        <div class="mastery-sub">Уникальных вопросов, на которые когда-либо ответили неверно</div>
+      </div>
+    </div>
+
+    <!-- По режимам -->
+    <div class="stat-section">
+      <div class="section-title">По режимам</div>
+      <div class="mode-grid">
+        <div class="mode-stat-card" id="ms-express">
+          <div class="ms-icon">⚡</div>
+          <div class="ms-name">Экспресс</div>
+          <div class="ms-sessions" id="ms-express-sessions">0 сессий</div>
+          <div class="ms-best" id="ms-express-best">—</div>
+          <div class="ms-bar-track"><div class="bar-fill green-fill ms-bar" id="ms-express-bar" style="width:0%"></div></div>
+        </div>
+        <div class="mode-stat-card" id="ms-exam">
+          <div class="ms-icon">🎯</div>
+          <div class="ms-name">Экзамен</div>
+          <div class="ms-sessions" id="ms-exam-sessions">0 сессий</div>
+          <div class="ms-best" id="ms-exam-best">—</div>
+          <div class="ms-bar-track"><div class="bar-fill green-fill ms-bar" id="ms-exam-bar" style="width:0%"></div></div>
+        </div>
+        <div class="mode-stat-card" id="ms-errors">
+          <div class="ms-icon">🔁</div>
+          <div class="ms-name">Ошибки</div>
+          <div class="ms-sessions" id="ms-errors-sessions">0 сессий</div>
+          <div class="ms-best" id="ms-errors-best">—</div>
+          <div class="ms-bar-track"><div class="bar-fill green-fill ms-bar" id="ms-errors-bar" style="width:0%"></div></div>
+        </div>
+        <div class="mode-stat-card" id="ms-all">
+          <div class="ms-icon">📚</div>
+          <div class="ms-name">Все</div>
+          <div class="ms-sessions" id="ms-all-sessions">0 сессий</div>
+          <div class="ms-best" id="ms-all-best">—</div>
+          <div class="ms-bar-track"><div class="bar-fill green-fill ms-bar" id="ms-all-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Сложные вопросы -->
+    <div class="stat-section" id="hard-section" style="display:none">
+      <div class="section-title">Самые сложные вопросы</div>
+      <div id="hard-list"></div>
+    </div>
+
+    <!-- Даты -->
+    <div class="stat-section">
+      <div class="section-title">История</div>
+      <div class="history-rows">
+        <div class="history-row"><span>Первое занятие</span><b id="stat-first-date">—</b></div>
+        <div class="history-row"><span>Последнее занятие</span><b id="stat-last-date">—</b></div>
+        <div class="history-row"><span>Всего ответов дано</span><b id="stat-total-answered">0</b></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FINISH SCREEN -->
+<div id="finish-screen">
+  <div class="finish-icon" id="finish-icon">🎯</div>
+  <div class="finish-title" id="finish-title"></div>
+  <div class="finish-sub" id="finish-sub"></div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Верно</div>
+      <div class="stat-value green" id="stat-correct">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Ошибки</div>
+      <div class="stat-value red" id="stat-wrong">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Результат</div>
+      <div class="stat-value accent" id="stat-pct">0%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Всего</div>
+      <div class="stat-value" id="stat-total">0</div>
+    </div>
+  </div>
+  <div id="wrong-section" class="hidden">
+    <div class="wrong-list-title">Вопросы с ошибками:</div>
+    <div class="wrong-pills" id="wrong-pills"></div>
+  </div>
+  <button class="btn-restart" onclick="restartQuiz()">Пройти заново</button>
+  <button class="btn-restart-wrong" id="btn-retry-wrong" onclick="retryWrong()">Повторить ошибки</button>
+  <button class="btn-restart-wrong" style="margin-top:8px;" onclick="showMenu()">← Главное меню</button>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// QUIZ DATA — замените своими 288 вопросами
+// Структура каждого вопроса:
+//   id: номер (1–288)
+//   question: текст вопроса
+//   type: "single" | "multiple"
+//   options: массив вариантов ответов
+//   correct: массив индексов правильных ответов (0-based)
+// ─────────────────────────────────────────────
+const quizData = [
+  {
+    id: 1,
+    question: "Согласно Конституции Российской Федерации, право наследования:",
+    type: "single",
+    options: [
+      "Устанавливается.",
+      "Гарантируется.",
+      "Закрепляется.",
+      "Право наследования устанавливается только гражданским законодательством (часть III ГК РФ) и не предусмотрено Конституцией Российской Федерации."
+    ],
+    correct: [1]
+  },
+  {
+    id: 2,
+    question: "Согласно Конституции Российской Федерации, нотариат находится:",
+    type: "single",
+    options: [
+      "В ведении Российской Федерации.",
+      "В совместном ведении Российской Федерации и субъектов Российской Федерации.",
+      "В ведении субъектов Российской Федерации.",
+      "Вне пределов ведения Российской Федерации и полномочий Российской Федерации по предметам совместного ведения Российской Федерации и субъектов Российской Федерации."
+    ],
+    correct: [1]
+  },
+  {
+    id: 3,
+    question: "Согласно Конституции Российской Федерации, право частной собственности:",
+    type: "single",
+    options: [
+      "Устанавливается законом.",
+      "Определяется законом.",
+      "Охраняется законом.",
+      "Закрепляется законом."
+    ],
+    correct: [2]
+  },
+  {
+    id: 4,
+    question: "Согласно Федеральному закону «Об организации предоставления государственных и муниципальных услуг», нотариальные действия:",
+    type: "single",
+    options: [
+      "Являются государственными услугами, которые предоставляются нотариусами, а также уполномоченными должностными лицами.",
+      "Относятся к системе государственных и муниципальных услуг.",
+      "Входят в единую систему оказания государственных и муниципальных услуг.",
+      "Не относятся к государственным услугам."
+    ],
+    correct: [3]
+  },
+  {
+    id: 5,
+    question: "Согласно Основам законодательства Российской Федерации о нотариате, нотариальные документы подлежат хранению:",
+    type: "single",
+    options: [
+      "В качестве подтверждения факта обращения к нотариусу за совершением нотариального действия.",
+      "В силу их юридической значимости для граждан, общества и государства.",
+      "В интересах обеспечения безопасности граждан и юридических лиц.",
+      "В качестве подтверждения факта хозяйственной жизни."
+    ],
+    correct: [1]
+  },
+  {
+    id: 6,
+    question: "Согласно Основам законодательства Российской Федерации о нотариате, нотариальные документы – это документы:",
+    type: "single",
+    options: [
+      "Удостоверенные, засвидетельствованные, совершенные, выданные нотариусом или иным лицом, уполномоченным на совершение нотариальных действий.",
+      "Удостоверенные, засвидетельствованные и выданные нотариусом.",
+      "Удостоверенные и выданные нотариусом или иным лицом, уполномоченным на совершение нотариальных действий.",
+      "Выданные нотариусом или приравненным к нему по статусу должностным лицом."
+    ],
+    correct: [0]
+  },
+  {
+    id: 7,
+    question: "Нотариальная тайна относится:",
+    type: "single",
+    options: [
+      "К сведениям, составляющим государственную тайну.",
+      "К сведениям, связанным с профессиональной деятельностью.",
+      "К служебным сведениям, доступ к которым ограничен органами государственной власти в соответствии с Гражданским кодексом Российской Федерации и федеральными законами.",
+      "К сведениям, связанным с коммерческой деятельностью, доступ к которым ограничен в соответствии с Гражданским кодексом Российской Федерации и федеральными законами."
+    ],
+    correct: [1]
+  },
+  {
+    id: 8,
+    question: "Нотариус удостоверяет факты:",
+    type: "multiple",
+    options: [
+      "Нахождения гражданина в живых, нахождения гражданина в определенном месте.",
+      "Возникновения права собственности на объекты движимого имущества в силу приобретательной давности.",
+      "Возникновения права собственности на объекты недвижимого имущества в силу закона.",
+      "Наличия сведений в Едином государственном реестре недвижимости."
+    ],
+    correct: [0, 3]
+  },
+  {
+    id: 9,
+    question: "Нотариусом в Российской Федерации не может быть:",
+    type: "single",
+    options: [
+      "Гражданин РФ, получивший высшее юридическое образование в имеющей государственную аккредитацию образовательной организации высшего образования.",
+      "Гражданин РФ, имеющий стаж работы по юридической специальности более пяти лет.",
+      "Лицо, имеющее гражданство (подданство) иностранного государства или иностранных государств, если иное не предусмотрено международным договором Российской Федерации.",
+      "Гражданин РФ, успешно сдавший квалификационный экзамен."
+    ],
+    correct: [2]
+  },
+  {
+    id: 10,
+    question: "Повторная сдача квалификационного экзамена необходима в случае, если:",
+    type: "single",
+    options: [
+      "Лицо, получившее лицензию, не приступило к работе в должности нотариуса в течение двух лет.",
+      "Лицо, получившее лицензию, не приступило к работе в должности нотариуса в течение пяти лет.",
+      "Лицо, получившее лицензию, не приступило к работе в должности нотариуса в течение четырех лет.",
+      "Лицо, сдавшее квалификационный экзамен, не приступило к работе в должности помощника нотариуса в течение трех лет."
+    ],
+    correct: [3]
+  },
+  {
+    id: 11,
+    question: "Отказ в совершении нотариального действия может быть обжалован:",
+    type: "single",
+    options: [
+      "В судебном порядке.",
+      "В территориальный орган Министерства юстиции РФ.",
+      "В нотариальную палату субъекта РФ.",
+      "В Федеральную нотариальную палату."
+    ],
+    correct: [0]
+  },
+  {
+    id: 12,
+    question: "Высшим органом нотариальной палаты является:",
+    type: "single",
+    options: [
+      "Президент нотариальной палаты.",
+      "Правление нотариальной палаты.",
+      "Собрание членов нотариальной палаты.",
+      "Высший орган отсутствует."
+    ],
+    correct: [2]
+  },
+  {
+    id: 13,
+    question: "Страхование деятельности нотариуса является:",
+    type: "single",
+    options: [
+      "Обязательным.",
+      "Добровольным.",
+      "Не осуществляется.",
+      "Исключительной компетенцией нотариальной палаты."
+    ],
+    correct: [0]
+  },
+  {
+    id: 14,
+    question: "Ответственность нотариуса за совершаемые нотариальные действия в соответствии с Основами законодательства о нотариате является:",
+    type: "single",
+    options: [
+      "Полной имущественной.",
+      "Ограниченной имущественной.",
+      "Субсидиарной.",
+      "Нотариус не несет ответственности за совершаемые нотариальные действия."
+    ],
+    correct: [0]
+  },
+  {
+    id: 15,
+    question: "Статус нотариуса, работающего в государственной нотариальной конторе и нотариуса, занимающегося частной практикой:",
+    type: "single",
+    options: [
+      "Отличается по обязанностям.",
+      "Равнозначен.",
+      "Отличается по силе документов.",
+      "Отличается по правам."
+    ],
+    correct: [1]
+  },
+  {
+    id: 16,
+    question: "Членство в нотариальной палате для нотариуса, занимающегося частной практикой:",
+    type: "single",
+    options: [
+      "Является добровольным.",
+      "Не предусмотрено.",
+      "Является обязательным.",
+      "Вопрос законодательно не урегулирован."
+    ],
+    correct: [2]
+  },
+  {
+    id: 17,
+    question: "Закон города Москвы о нотариате называется:",
+    type: "single",
+    options: [
+      "«Об организации и деятельности нотариата в городе Москве».",
+      "«Основы законодательства города Москвы о нотариате».",
+      "«О нотариате в городе Москве».",
+      "«О нотариальной деятельности в городе Москве»."
+    ],
+    correct: [0]
+  },
+  {
+    id: 18,
+    question: "Основы законодательства РФ о нотариате были приняты:",
+    type: "single",
+    options: [
+      "В 1997 году.",
+      "В 1995 году.",
+      "В 1993 году.",
+      "В 1999 году."
+    ],
+    correct: [2]
+  },
+  {
+    id: 19,
+    question: "Выберите действующую редакцию статьи 6 Основ законодательства Российской Федерации о нотариате «Ограничения в деятельности нотариуса»:",
+    type: "single",
+    options: [
+      "Нотариус не вправе: заниматься предпринимательской деятельностью; оказывать посреднические услуги при заключении договоров.",
+      "Нотариус не вправе: заниматься оплачиваемой деятельностью, за исключением преподавательской, научной или иной творческой деятельности; оказывать посреднические услуги при заключении договоров.",
+      "Нотариус не вправе: заниматься предпринимательской и другой оплачиваемой деятельностью, за исключением преподавательской, научной или иной творческой деятельности; оказывать посреднические услуги при заключении договоров.",
+      "Нотариус не вправе: заниматься предпринимательской и другой оплачиваемой деятельностью; оказывать посреднические услуги при заключении договоров."
+    ],
+    correct: [2]
+  },
+  {
+    id: 20,
+    question: "Количество стажеров определяется нотариальной палатой по согласованию с территориальным органом юстиции:",
+    type: "single",
+    options: [
+      "Ежемесячно.",
+      "Один раз в полугодие.",
+      "Ежеквартально.",
+      "Ежегодно."
+    ],
+    correct: [3]
+  },
+  {
+    id: 21,
+    question: "Закончите предложение «Помощником нотариуса может быть гражданин Российской Федерации…»:",
+    type: "single",
+    options: [
+      "Сдавший квалификационный экзамен.",
+      "Сдавший квалификационный экзамен и соответствующий требованиям части первой статьи 2 Основ законодательства Российской Федерации о нотариате (за исключением требований о достижении возраста двадцати пяти лет и наличии стажа работы по юридической специальности).",
+      "Сдавший квалификационный экзамен и соответствующий требованиям частей первой и второй статьи 2 Основ законодательства Российской Федерации о нотариате (за исключением требований о достижении возраста двадцати пяти лет и наличии стажа работы по юридической специальности).",
+      "Сдавший квалификационный экзамен и соответствующий требованиям части второй статьи 2 Основ законодательства Российской Федерации о нотариате (за исключением требований о достижении возраста двадцати пяти лет и наличии стажа работы по юридической специальности)."
+    ],
+    correct: [2]
+  },
+  {
+    id: 22,
+    question: "Органом нотариальной палаты не является:",
+    type: "single",
+    options: [
+      "Ревизионная комиссия нотариальной палаты.",
+      "Бюджетная комиссия нотариальной палаты.",
+      "Правление нотариальной палаты.",
+      "Общее собрание членов нотариальной палаты."
+    ],
+    correct: [1]
+  },
+  {
+    id: 23,
+    question: "Закончите предложение: «Лица, не выдержавшие квалификационного экзамена, допускаются к повторной его сдаче…» (в соответствии с Основами законодательства РФ о нотариате):",
+    type: "single",
+    options: [
+      "Не ранее чем через 6 месяцев после принятия решения квалификационной комиссией.",
+      "Не ранее чем через год после принятия решения квалификационной комиссией.",
+      "Не ранее чем через 2 года после принятия решения квалификационной комиссией.",
+      "Не ранее чем через 3 года после принятия решения квалификационной комиссией."
+    ],
+    correct: [1]
+  },
+  {
+    id: 24,
+    question: "Проверка организации работы нотариуса проводится:",
+    type: "single",
+    options: [
+      "Каждый год.",
+      "1 раз в 4 года.",
+      "Каждый месяц.",
+      "1 раз в 2 года."
+    ],
+    correct: [1]
+  },
+  {
+    id: 25,
+    question: "Нотариус вправе:",
+    type: "single",
+    options: [
+      "Заниматься научной деятельностью.",
+      "Оказывать посреднические услуги при заключении договоров.",
+      "Заниматься предпринимательской деятельностью.",
+      "Правильного ответа нет."
+    ],
+    correct: [0]
+  },
+  {
+    id: 26,
+    question: "Что изображено на личной печати нотариуса:",
+    type: "single",
+    options: [
+      "Государственный герб Российской Федерации, фамилия, инициалы, должность нотариуса и место его нахождения.",
+      "Государственный герб Российской Федерации, фамилия, инициалы, должность нотариуса.",
+      "Государственный герб Российской Федерации, фамилия, инициалы и место нахождения нотариуса.",
+      "Государственный герб Российской Федерации, фамилия, инициалы, должность нотариуса и место его нахождения и номер лицензии."
+    ],
+    correct: [0]
+  },
+  {
+    id: 27,
+    question: "Совершение нотариусом нотариального действия за пределами своего нотариального округа:",
+    type: "single",
+    options: [
+      "Влечет за собой признание недействительности этого действия.",
+      "Влечет за собой ответственность.",
+      "Не влечет за собой признания недействительности этого действия в случае перерегистрации у другого нотариуса.",
+      "Не влечет за собой признания недействительности этого действия."
+    ],
+    correct: [3]
+  },
+  {
+    id: 28,
+    question: "Органами нотариальной палаты являются:",
+    type: "single",
+    options: [
+      "Общее собрание членов нотариальной палаты, президент нотариальной палаты, правление нотариальной палаты, ревизионная комиссия нотариальной палаты, иные органы, создание которых предусмотрено уставом нотариальной палаты.",
+      "Общее собрание членов нотариальной палаты, президент нотариальной палаты, правление нотариальной палаты, ревизионная комиссия нотариальной палаты.",
+      "Президент нотариальной палаты, правление нотариальной палаты, ревизионная комиссия нотариальной палаты, иные органы, создание которых предусмотрено уставом нотариальной палаты.",
+      "Общее собрание членов нотариальной палаты, президент нотариальной палаты, ревизионная комиссия нотариальной палаты, иные органы, создание которых предусмотрено уставом нотариальной палаты."
+    ],
+    correct: [0]
+  },
+  {
+    id: 29,
+    question: "Полномочия нотариальной палаты:",
+    type: "single",
+    options: [
+      "Нотариальная палата представляет и защищает интересы нотариусов, оказывает им помощь, проводит стажировку лиц, претендующих на должность нотариуса, и повышение профессиональной подготовки нотариусов; возмещает затраты на экспертизы, назначенные судом по делам, связанным с деятельностью нотариусов; организует страхование нотариальной деятельности.",
+      "Нотариальная палата представляет и защищает интересы нотариусов, оказывает им помощь и содействие в развитии частной нотариальной деятельности.",
+      "Нотариальная палата представляет, но не защищает интересы нотариусов, организует стажировку и содействие в развитии нотариальной палаты.",
+      "Нотариальная палата только организует страхование нотариальной деятельности и повышение профессиональной подготовки нотариусов."
+    ],
+    correct: [0]
+  },
+  {
+    id: 30,
+    question: "В каком случае может быть отказано в совершении нотариальных действий:",
+    type: "single",
+    options: [
+      "Документы, представленные для совершения нотариального действия, не соответствуют требованиям законодательства.",
+      "Сделка соответствует требованиям закона.",
+      "Сделка, совершаемая от имени юридического лица, не противоречит целям, указанным в его уставе или положении.",
+      "Факты, изложенные в документах, представленных для совершения нотариального действия, подтверждены в установленном законодательством Российской Федерации порядке."
+    ],
+    correct: [0]
+  },
+  {
+    id: 31,
+    question: "Высшим органом нотариальной палаты субъекта РФ является:",
+    type: "single",
+    options: [
+      "Собрание членов нотариальной палаты.",
+      "Президиум.",
+      "Правление.",
+      "Президент."
+    ],
+    correct: [0]
+  },
+  {
+    id: 32,
+    question: "Нотариус не вправе заниматься:",
+    type: "single",
+    options: [
+      "Научной деятельностью.",
+      "Преподавательской деятельностью.",
+      "Предпринимательской деятельностью."
+    ],
+    correct: [2]
+  },
+  {
+    id: 33,
+    question: "Постановление об отказе в совершении нотариального действия должно быть вынесено нотариусом со дня обращения к нему не позднее:",
+    type: "single",
+    options: [
+      "Пяти дней.",
+      "Семи дней.",
+      "Десяти дней.",
+      "Месяца со дня."
+    ],
+    correct: [2]
+  },
+  {
+    id: 34,
+    question: "Нотариус вправе совершать нотариальные действия:",
+    type: "single",
+    options: [
+      "На свое имя и от своего имени.",
+      "На имя и от имени своего супруга.",
+      "На имя и от имени своих родственников (родителей, детей, внуков).",
+      "На имя и от имени сотрудников нотариальной палаты."
+    ],
+    correct: [3]
+  },
+  {
+    id: 35,
+    question: "Свидетельство выдается нотариусом в подтверждение:",
+    type: "single",
+    options: [
+      "В подтверждение удостоверения сделки.",
+      "Права наследования.",
+      "Удостоверения завещания."
+    ],
+    correct: [1]
+  },
+  {
+    id: 36,
+    question: "Нотариус регистрирует нотариальные действия:",
+    type: "single",
+    options: [
+      "В реестре регистрации нотариальных действий.",
+      "В реестре учета нотариальных действий.",
+      "В книге регистрации входящей корреспонденции.",
+      "В книге регистрации исходящей корреспонденции."
+    ],
+    correct: [0]
+  },
+  {
+    id: 37,
+    question: "Формы реестров, нотариальных свидетельств, удостоверительных надписей устанавливаются:",
+    type: "single",
+    options: [
+      "Правительством РФ.",
+      "Минюстом РФ.",
+      "Территориальным органом Минюста РФ по субъекту РФ.",
+      "Нотариальной палатой субъекта РФ."
+    ],
+    correct: [1]
+  },
+  {
+    id: 38,
+    question: "В соответствии со статьёй 11 Основ законодательства Российской Федерации о нотариате нотариус имеет:",
+    type: "single",
+    options: [
+      "Личную печать.",
+      "Штампы удостоверительных надписей.",
+      "Личные бланки.",
+      "Всё перечисленное."
+    ],
+    correct: [3]
+  },
+  {
+    id: 39,
+    question: "Жалоба на совершённое нотариальное действие (на отказ в совершении нотариального действия) подаётся в суд:",
+    type: "single",
+    options: [
+      "По месту жительства заявителя.",
+      "По месту жительства нотариуса.",
+      "По месту нахождения нотариальной конторы.",
+      "По месту нахождения нотариальной палаты."
+    ],
+    correct: [2]
+  },
+  {
+    id: 40,
+    question: "Жалоба в суд на совершённое нотариальное действие (на отказ в совершении нотариального действия) рассматривается в порядке:",
+    type: "single",
+    options: [
+      "Искового производства.",
+      "По правилам особого производства.",
+      "Апелляционного производства.",
+      "Надзорного производства."
+    ],
+    correct: [1]
+  },
+  {
+    id: 41,
+    question: "Легализация иностранных документов не требуется:",
+    type: "single",
+    options: [
+      "Если документ удостоверен специально уполномоченным должностным лицом иностранного государства.",
+      "Если документ удостоверен нотариусом иностранного государства.",
+      "Если это предусмотрено международным договором РФ.",
+      "Для документов, составленных на русском языке."
+    ],
+    correct: [2]
+  },
+  {
+    id: 42,
+    question: "Федеральный закон «О порядке выезда из РФ и въезда в РФ» для граждан РФ регулирует:",
+    type: "single",
+    options: [
+      "Порядок выезда несовершеннолетнего ребёнка из РФ.",
+      "Порядок перемещения несовершеннолетнего ребёнка по территории иностранного государства.",
+      "Порядок перемещения несовершеннолетнего ребёнка по территории РФ."
+    ],
+    correct: [0]
+  },
+  {
+    id: 43,
+    question: "Порядок взаимоотношений нотариуса с органами юстиции другого государства определяется:",
+    type: "single",
+    options: [
+      "Законодательством другого государства.",
+      "Самостоятельно нотариусом.",
+      "Международными договорами РФ."
+    ],
+    correct: [2]
+  },
+  {
+    id: 44,
+    question: "Российская Федерация выступает в отношениях, регулируемых гражданским законодательством:",
+    type: "single",
+    options: [
+      "На равных началах с гражданами и юридическими лицами.",
+      "Преимущественно с юридическими лицами.",
+      "Преимущественно с гражданами."
+    ],
+    correct: [0]
+  },
+  {
+    id: 45,
+    question: "Первая проверка организации работы нотариуса, впервые приступившего к осуществлению нотариальной деятельности, должна быть проведена:",
+    type: "single",
+    options: [
+      "Через год после наделения его полномочиями нотариуса.",
+      "Через два года после наделения его полномочиями нотариуса.",
+      "Через четыре года после наделения его полномочиями нотариуса."
+    ],
+    correct: [0]
+  },
+  {
+    id: 46,
+    question: "В соответствии со статьёй 34.2 Основ законодательства Российской Федерации о нотариате Единая информационная система нотариата включает в себя ведущиеся в электронной форме реестры, кроме:",
+    type: "single",
+    options: [
+      "Нотариальных действий.",
+      "Наследственных дел.",
+      "Завещаний.",
+      "Уведомлений о залоге имущества, не относящегося к недвижимым вещам."
+    ],
+    correct: [2]
+  },
+  {
+    id: 47,
+    question: "Нотариус может совершить нотариальное действие путём изготовления нотариального документа в электронной форме:",
+    type: "single",
+    options: [
+      "Если законом установлена такая обязательная форма.",
+      "По просьбе заявителя.",
+      "По инициативе нотариуса.",
+      "Только в отношении недееспособных и несовершеннолетних лиц."
+    ],
+    correct: [1]
+  },
+  {
+    id: 48,
+    question: "В соответствии с гражданским процессуальным законодательством обстоятельства, подтверждённые нотариусом при совершении нотариального действия:",
+    type: "single",
+    options: [
+      "Не требуют доказывания.",
+      "Имеют равную юридическую силу наравне с другими доказательствами.",
+      "Не требуют доказывания, если подлинность нотариально оформленного документа не опровергнута в порядке, предусмотренном законом, или не установлено существенное нарушение порядка совершения нотариального действия.",
+      "Имеют повышенную юридическую силу."
+    ],
+    correct: [2]
+  },
+  {
+    id: 49,
+    question: "Не является разглашением сведений о совершении нотариального действия:",
+    type: "single",
+    options: [
+      "Предоставление информации о нотариальном действии судебному приставу-исполнителю при решении вопроса о возбуждении исполнительного производства.",
+      "Проверка информации о нотариальном документе посредством единой информационной системы нотариата с использованием машиночитаемой маркировки, размещённой на нотариальном документе.",
+      "Выдача справки о совместном завещании для другого нотариуса при удостоверении брачного договора.",
+      "Предоставление сведений органам ЗАГСа по их запросу в связи со смертью наследодателя."
+    ],
+    correct: [1]
+  },
+  {
+    id: 50,
+    question: "Какие сведения не может содержать машиночитаемая маркировка, размещённая на нотариальном документе:",
+    type: "single",
+    options: [
+      "Вид нотариального действия.",
+      "Содержание нотариального действия.",
+      "Регистрационный номер нотариального действия.",
+      "Данные о заявителях, их представителях."
+    ],
+    correct: [1]
+  },
+  {
+    id: 51,
+    question: "В случае удостоверения сделки двумя и более нотариусами ответственность нотариусов за причинённый по их вине вред вследствие признания сделки недействительной является:",
+    type: "single",
+    options: [
+      "Солидарной.",
+      "Субсидиарной.",
+      "Солидарной, при условии причинения вреда органам государственной власти.",
+      "Субсидиарной, при условии причинения вреда юридическому лицу."
+    ],
+    correct: [0]
+  },
+  {
+    id: 52,
+    question: "Сведения о совершении нотариальных действий удалённо и об удостоверении сделок двумя и более нотариусами вносятся нотариусом в единую информационную систему нотариата:",
+    type: "single",
+    options: [
+      "В течение 2-х часов.",
+      "В конце рабочего дня.",
+      "Незамедлительно.",
+      "В течение 2-х рабочих дней."
+    ],
+    correct: [2]
+  },
+  {
+    id: 53,
+    question: "Техническая ошибка исправляется нотариусом при её обнаружении в записях, в том числе по требованию заявителя или его представителя либо на основании решения суда:",
+    type: "single",
+    options: [
+      "В течение 1-го рабочего дня после поступления требования заявителя или его представителя либо решения суда.",
+      "Незамедлительно после поступления требования заявителя или его представителя либо решения суда.",
+      "В течение 10-ти рабочих дней после вступления в силу решения суда.",
+      "В течение 3-х рабочих дней после поступления требования заявителя или его представителя либо решения суда."
+    ],
+    correct: [3]
+  },
+  {
+    id: 54,
+    question: "Техническая ошибка, не изменяющая правового содержания нотариально оформленного документа и не влияющая на права третьих лиц, исправляется нотариусом по требованию:",
+    type: "single",
+    options: [
+      "Федеральной нотариальной палаты или нотариальной палаты субъекта Российской Федерации.",
+      "Заявителя или его представителя либо на основании решения суда.",
+      "Заявителя при наличии решения суда.",
+      "Государственного органа, осуществляющего регистрационные действия."
+    ],
+    correct: [1]
+  },
+  {
+    id: 55,
+    question: "Федеральная нотариальная палата не обеспечивает свободный доступ неограниченного круга лиц к сведениям в единой информационной системе нотариата:",
+    type: "single",
+    options: [
+      "О завещаниях.",
+      "О доверенности.",
+      "О залоге движимого имущества.",
+      "О наследственных делах."
+    ],
+    correct: [0]
+  },
+  {
+    id: 56,
+    question: "Нотариус направляет в электронной форме заявителю нотариальный документ или постановление об отказе (отложении) совершения нотариального действия удалённо:",
+    type: "single",
+    options: [
+      "Не позднее чем через пять рабочих дней со дня получения информации, подтверждающей оплату нотариального действия.",
+      "Не позднее чем через два рабочих дня со дня получения информации, подтверждающей оплату нотариального действия.",
+      "Не позднее чем через десять рабочих дней со дня получения информации, подтверждающей оплату нотариального действия.",
+      "Незамедлительно с момента получения информации, подтверждающей оплату нотариального действия."
+    ],
+    correct: [0]
+  },
+  {
+    id: 57,
+    question: "Представленные для совершения нотариальных действий электронные документы не должны содержать:",
+    type: "single",
+    options: [
+      "Информацию, содержащую сведения о нотариальной тайне.",
+      "Компьютерные программы либо иную компьютерную информацию, заведомо предназначенные для несанкционированного уничтожения, блокирования, модификации или копирования компьютерной информации либо нейтрализации средств защиты компьютерной информации.",
+      "Персональные данные о заявителе или его представителе.",
+      "Сведения о лицах, включённых в реестр иностранных агентов."
+    ],
+    correct: [1]
+  },
+  {
+    id: 58,
+    question: "При удостоверении сделок нотариус осуществляет проверку:",
+    type: "single",
+    options: [
+      "Наличия электронной цифровой подписи у заявителя.",
+      "Дееспособности граждан и правоспособности юридических лиц, а также наличия несовершеннолетних детей.",
+      "Дееспособности граждан и правоспособности юридических лиц, а также наличия волеизъявления заявителей.",
+      "Дееспособности граждан и правоспособности юридических лиц, а также наличия волеизъявления заявителей и совместного завещания."
+    ],
+    correct: [2]
+  },
+  {
+    id: 59,
+    question: "Сделка может быть удостоверена двумя и более нотариусами, если в совершении такой сделки участвуют:",
+    type: "single",
+    options: [
+      "Два и более лица без их совместного присутствия.",
+      "Два и более лица при их совместном присутствии.",
+      "Только совершеннолетние лица.",
+      "Только лица, имеющие усиленную квалифицированную электронную подпись."
+    ],
+    correct: [0]
+  },
+  {
+    id: 60,
+    question: "Договор, удостоверенный двумя и более нотариусами в порядке, предусмотренном Основами законодательства РФ о нотариате, считается:",
+    type: "single",
+    options: [
+      "Квалифицированной электронной сделкой.",
+      "Договором, заключённым в письменной форме путём составления одного документа, подписанного сторонами.",
+      "Договором, заключённым в письменной форме путём составления двух и более документов, подписанных сторонами.",
+      "Электронным договором, заключённым в нотариальной форме путём составления двух и более документов, подписанных сторонами."
+    ],
+    correct: [1]
+  },
+  {
+    id: 61,
+    question: "Кем устанавливаются требования к формату электронного документа?",
+    type: "single",
+    options: [
+      "Федеральным органом юстиции.",
+      "Федеральным органом юстиции совместно с Федеральной нотариальной палатой.",
+      "Удостоверяющим центром."
+    ],
+    correct: [1]
+  },
+  {
+    id: 62,
+    question: "Согласно Федеральному закону «О государственной регистрации юридических лиц и индивидуальных предпринимателей», законодательство РФ о государственной регистрации юридических лиц и индивидуальных предпринимателей состоит из:",
+    type: "single",
+    options: [
+      "Конституции РФ, Гражданского кодекса РФ, Административного кодекса РФ, Федерального закона «О государственной регистрации юридических лиц и индивидуальных предпринимателей» и издаваемых в соответствии с ними законодательных актов РФ.",
+      "Арбитражного процессуального кодекса РФ, Федерального закона «О государственной регистрации юридических лиц и индивидуальных предпринимателей» и издаваемых в соответствии с ними иных нормативных правовых актов РФ.",
+      "Гражданского кодекса РФ, Федерального закона «О государственной регистрации юридических лиц и индивидуальных предпринимателей» и издаваемых в соответствии с ними иных нормативных правовых актов РФ.",
+      "Федерального закона «О государственной регистрации юридических лиц и индивидуальных предпринимателей» и издаваемых в соответствии с ними иных законодательных актов РФ."
+    ],
+    correct: [2]
+  },
+  {
+    id: 63,
+    question: "Согласно Федеральному закону «О государственной регистрации юридических лиц и индивидуальных предпринимателей», государственная регистрация юридических лиц и индивидуальных предпринимателей — это:",
+    type: "single",
+    options: [
+      "Акты уполномоченного федерального органа исполнительной власти.",
+      "Действия уполномоченного федерального органа исполнительной власти.",
+      "Совокупность установленных законом действий, осуществляемых уполномоченным федеральным органом исполнительной власти.",
+      "Совокупность установленных законом процедур, осуществляемых уполномоченным федеральным органом исполнительной власти."
+    ],
+    correct: [0]
+  },
+  {
+    id: 64,
+    question: "Участник ООО, отчуждающий свою долю, до удостоверения договора у нотариуса подал в ООО заявление о выходе из участников общества. Должен ли нотариус при удостоверении договора учитывать этот факт?",
+    type: "single",
+    options: [
+      "Не должен.",
+      "Должен.",
+      "По усмотрению нотариуса."
+    ],
+    correct: [1]
+  },
+  {
+    id: 65,
+    question: "При удостоверении договора по отчуждению доли ООО нотариус потребовал согласие общества, доли которого отчуждаются. Правомочно ли требование нотариуса?",
+    type: "single",
+    options: [
+      "Правомочны.",
+      "Не правомочны.",
+      "Правомочны, если необходимость получения такого согласия заложена в уставе общества, доли которого отчуждаются."
+    ],
+    correct: [2]
+  },
+  {
+    id: 66,
+    question: "Для удостоверения договора об отчуждении доли ООО к нотариусу обратились два юридических лица. Покупатель в качестве единственного участника имел другое хозяйственное общество, состоящее из одного лица. Возможно ли нотариальное удостоверение договора при таких условиях?",
+    type: "single",
+    options: [
+      "Невозможно.",
+      "Возможно.",
+      "Количество участников ООО и их субъектный состав никаким образом не влияет на возможность либо невозможность нотариального удостоверения договора по отчуждению доли ООО."
+    ],
+    correct: [0]
+  },
+  {
+    id: 67,
+    question: "К нотариусу обратились участники ООО с просьбой удостоверить договор отчуждения доли ООО, принадлежащей самому обществу. Нотариусу был предоставлен договор купли-продажи доли в простой письменной форме от 01.12.2009 года. Нотариус отказал, сославшись на то, что договор должен был быть удостоверен нотариально. Прав ли нотариус?",
+    type: "single",
+    options: [
+      "Прав.",
+      "Не прав.",
+      "Все договоры по отчуждению доли ООО подлежат обязательному нотариальному удостоверению."
+    ],
+    correct: [1]
+  },
+  {
+    id: 68,
+    question: "Юридическим лицом признаётся (в соответствии со статьёй 48 ГК РФ):",
+    type: "single",
+    options: [
+      "Организация, которая имеет в собственности, хозяйственном ведении или оперативном управлении обособленное имущество и отвечает по своим обязательствам этим имуществом, может от своего имени приобретать и осуществлять имущественные и личные неимущественные права, нести обязанности, быть истцом и ответчиком в суде.",
+      "Структура, имеющая юридический адрес, самостоятельный баланс, печать и бланки, образованная за счёт вклада участников.",
+      "Общество, имеющее организационно-правовую структуру, организационно-правовое единство."
+    ],
+    correct: [0]
+  },
+  {
+    id: 69,
+    question: "Юридическое лицо приобретает гражданские права и принимает на себя гражданские обязанности через (ст. 53 ГК РФ):",
+    type: "single",
+    options: [
+      "Лицо, уполномоченное и наделённое соответствующим правом подписи.",
+      "Свои органы, действующие в соответствии с законом и учредительными документами.",
+      "Только участников общества."
+    ],
+    correct: [1]
+  },
+  {
+    id: 70,
+    question: "Филиалы юридического лица являются:",
+    type: "single",
+    options: [
+      "Отделениями юридического лица.",
+      "Дочерними юридическими лицами.",
+      "Не являются юридическими лицами."
+    ],
+    correct: [2]
+  },
+  {
+    id: 71,
+    question: "Лицо может быть учредителем:",
+    type: "single",
+    options: [
+      "Только одного полного товарищества.",
+      "Только двух полных товариществ.",
+      "Неограниченного количества товариществ."
+    ],
+    correct: [0]
+  },
+  {
+    id: 72,
+    question: "Товарищество на вере – это:",
+    type: "single",
+    options: [
+      "Коммандитное товарищество.",
+      "Товарищество собственников недвижимости.",
+      "Полное товарищество."
+    ],
+    correct: [0]
+  },
+  {
+    id: 73,
+    question: "Участники общества с ограниченной ответственностью:",
+    type: "single",
+    options: [
+      "Не отвечают по долгам общества, если это предусмотрено Уставом.",
+      "Отвечают в полном объёме субсидиарно.",
+      "Отвечают в пределах стоимости принадлежащих им долей."
+    ],
+    correct: [2]
+  },
+  {
+    id: 74,
+    question: "Товарищество на вере создаётся и действует на основании:",
+    type: "single",
+    options: [
+      "Опционного договора.",
+      "Учредительного договора.",
+      "Оферты."
+    ],
+    correct: [1]
+  },
+  {
+    id: 75,
+    question: "Ассоциация – это:",
+    type: "single",
+    options: [
+      "Некоммерческая организация (союз).",
+      "Учреждения, некоммерческие организации.",
+      "Не имеющая членства некоммерческая организация."
+    ],
+    correct: [0]
+  },
+  {
+    id: 76,
+    question: "Руководители представительств и филиалов назначаются юридическим лицом и действуют на основании:",
+    type: "single",
+    options: [
+      "Доверенности.",
+      "Приказа.",
+      "Административного акта."
+    ],
+    correct: [0]
+  },
+  {
+    id: 77,
+    question: "Юридические лица, кроме учреждений, отвечают по своим обязательствам:",
+    type: "single",
+    options: [
+      "Имуществом, переданным учредителями.",
+      "Всем, принадлежащим им имуществом.",
+      "Не несут имущественной ответственности."
+    ],
+    correct: [1]
+  },
+  {
+    id: 78,
+    question: "Учредитель юридического лица не отвечает по обязательствам юридического лица:",
+    type: "single",
+    options: [
+      "Да.",
+      "Отвечает.",
+      "Отвечает только в Обществе с ограниченной ответственностью."
+    ],
+    correct: [0]
+  },
+  {
+    id: 79,
+    question: "Сделка по отчуждению доли не подлежит нотариальному удостоверению в случае:",
+    type: "single",
+    options: [
+      "Отчуждения доли обществом третьему лицу.",
+      "Отчуждения доли участником общества третьему лицу.",
+      "Отчуждения доли участником другому участнику общества."
+    ],
+    correct: [0]
+  },
+  {
+    id: 80,
+    question: "Нотариус устанавливает результаты голосования органа управления юридического лица на основании:",
+    type: "single",
+    options: [
+      "Протокола общего собрания.",
+      "Протокола счётной комиссии.",
+      "Производит подсчёт самостоятельно."
+    ],
+    correct: [1]
+  },
+  {
+    id: 81,
+    question: "Оферта о продаже доли или части доли в уставном капитале общества считается полученной:",
+    type: "single",
+    options: [
+      "В момент её получения участником Общества.",
+      "В момент её получения Обществом.",
+      "В момент подписания участником отказа от преимущественного права покупки доли."
+    ],
+    correct: [1]
+  },
+  {
+    id: 82,
+    question: "Согласно Федеральному закону «О государственной регистрации недвижимости», Единый государственный реестр недвижимости является:",
+    type: "single",
+    options: [
+      "Базой систематизированных фактических данных.",
+      "Хранилищем объективной информации.",
+      "Государственным ресурсом объективных данных.",
+      "Сводом достоверных систематизированных сведений."
+    ],
+    correct: [3]
+  },
+  {
+    id: 83,
+    question: "Согласно Федеральному закону «О государственной регистрации недвижимости», государственная регистрация прав на недвижимое имущество — это:",
+    type: "single",
+    options: [
+      "Установленная законом совокупность юридических действий.",
+      "Юридическая процедура.",
+      "Юридический поступок.",
+      "Юридический акт."
+    ],
+    correct: [3]
+  },
+  {
+    id: 84,
+    question: "Согласно Федеральному закону «О государственной регистрации недвижимости», государственная регистрация прав осуществляется посредством внесения в ЕГРН:",
+    type: "single",
+    options: [
+      "Сведений о недвижимом имуществе и сделках с ним.",
+      "Информации о правах граждан на недвижимое имущество и сделках с ним.",
+      "Данных о зарегистрированных правах граждан и юридических лиц.",
+      "Записи о праве на недвижимое имущество."
+    ],
+    correct: [3]
+  },
+  {
+    id: 85,
+    question: "Подача документов на государственную регистрацию прав на недвижимое имущество нотариусом:",
+    type: "single",
+    options: [
+      "Является самостоятельным нотариальным действием.",
+      "Производится по сделкам, заключённым как в простой письменной форме, так и по нотариально удостоверенным сделкам.",
+      "Не является самостоятельным нотариальным действием.",
+      "Не осуществляется."
+    ],
+    correct: [2]
+  },
+  {
+    id: 86,
+    question: "Государственная регистрация (объектов) недвижимости в РФ – внесение записи о возникновении, изменении, прекращении или обременении права в ЕГРН:",
+    type: "single",
+    options: [
+      "Не является обязательной процедурой, если права на объект недвижимости возникают на основании нотариально удостоверенной сделки или свидетельства о праве на наследство, выданного нотариусом.",
+      "Является единственным доказательством существования права и может быть оспорена как в судебном, так и во внесудебном порядке.",
+      "Является доказательством существования права исключительно при наличии оригиналов правоустанавливающих документов (договор, решение суда, свидетельство о праве на наследство и др.).",
+      "Является единственным доказательством существования права и может быть оспорена только в судебном порядке."
+    ],
+    correct: [3]
+  },
+  {
+    id: 87,
+    question: "После удостоверения договора, на основании которого возникает право на недвижимое имущество, подлежащее государственной регистрации, нотариус:",
+    type: "single",
+    options: [
+      "Вправе отправить заявление о государственной регистрации прав в орган регистрации прав в течение одного месяца.",
+      "Вправе отправить заявление о государственной регистрации прав в орган регистрации прав в течение десяти рабочих дней, а заявление в электронной форме — в течение двух дней.",
+      "Обязан не позднее двух часов или в сроки, установленные сторонами в договоре, представить в электронной форме заявление о государственной регистрации прав, если стороны сделки изъявили своё согласие на подачу такого заявления нотариусом.",
+      "Обязан незамедлительно, но не позднее окончания рабочего дня или в сроки, установленные сторонами в договоре, представить в электронной форме заявление о государственной регистрации прав, если стороны сделки не возражают против подачи такого заявления нотариусом."
+    ],
+    correct: [3]
+  },
+  {
+    id: 88,
+    question: "При удостоверении договоров об отчуждении или залоге имущества, права на которое подлежат государственной регистрации, нотариус проверяет:",
+    type: "single",
+    options: [
+      "Только принадлежность данного имущества лицу, его отчуждающему или закладывающему.",
+      "Принадлежность данного имущества лицу, его отчуждающему или закладывающему, за исключением случаев, если в соответствии с договором на момент его совершения данное имущество ещё не принадлежит этому лицу, а также отсутствие ограничений прав, обременений имущества или иных обстоятельств, препятствующих совершению этих договоров.",
+      "Принадлежность данного имущества лицу, его отчуждающему или закладывающему, наличие запретов, ограничений и обременений, или иных обстоятельств, препятствующих совершению этих договоров.",
+      "Право лица на совершение данной сделки, а также отсутствие ограничений прав, обременений имущества или иных обстоятельств, препятствующих совершению этих договоров."
+    ],
+    correct: [1]
+  },
+  {
+    id: 89,
+    question: "В случае возникшей по причинам, за которые нотариус не отвечает, невозможности представить заявление о государственной регистрации прав в электронной форме нотариус обязан представить их в орган регистрации прав:",
+    type: "single",
+    options: [
+      "В форме документов на бумажном носителе не позднее двух рабочих дней со дня удостоверения договора, а в случае, если такой срок определён сторонами в договоре, не позднее двух рабочих дней по истечении такого срока.",
+      "В электронной форме не позднее двух рабочих дней со дня удостоверения договора, а в случае, если такой срок определён сторонами в договоре, не позднее двух рабочих дней по истечении такого срока.",
+      "В любой форме не позднее трёх рабочих дней со дня удостоверения договора, а в случае, если такой срок определён сторонами в договоре, не позднее двух рабочих дней по истечении такого срока.",
+      "В форме и в срок, предусмотренный сторонами в договоре."
+    ],
+    correct: [0]
+  },
+  {
+    id: 90,
+    question: "Нотариус удостоверяет факт возникновения права собственности на объекты недвижимого имущества в силу приобретательной давности:",
+    type: "single",
+    options: [
+      "Нотариус не вправе совершать такое действие, поскольку оно не включено в перечень нотариальных действий, предусмотренных ст. 35 Основ законодательства РФ о нотариате.",
+      "Нотариус совершает данное нотариальное действие в рамках наследственного дела, когда наследник лишён возможности представить нотариусу документы, подтверждающие право наследодателя на данное имущество.",
+      "Нотариус совершает данное нотариальное действие в случаях, установленных Федеральным законом только для АО «Почта России».",
+      "Нотариус совершает данное нотариальное действие в случаях, установленных Федеральным законом только для государственных предприятий и учреждений."
+    ],
+    correct: [2]
+  },
+  {
+    id: 91,
+    question: "Согласно Налоговому кодексу Российской Федерации, плательщики уплачивают государственную пошлину при обращении за совершением нотариальных действий:",
+    type: "single",
+    options: [
+      "До регистрации нотариальных действий в реестре нотариальных действий.",
+      "До совершения нотариальных действий.",
+      "Непосредственно после регистрации нотариальных действий в реестре нотариальных действий.",
+      "По окончании совершения нотариальных действий."
+    ],
+    correct: [1]
+  },
+  {
+    id: 92,
+    question: "Согласно Гражданскому кодексу Российской Федерации, земельным участком признаётся:",
+    type: "single",
+    options: [
+      "Часть поверхности земли, границы которой определены в порядке, установленном законом.",
+      "Часть территории, координаты которой зарегистрированы в установленном законом порядке.",
+      "Участок местности, географические координаты которого внесены в Единый государственный реестр недвижимости.",
+      "Часть поверхности суши, отграниченная и оформленная в порядке, установленном действующим законодательством."
+    ],
+    correct: [0]
+  },
+  {
+    id: 93,
+    question: "Согласно Земельному кодексу Российской Федерации, землевладельцы – это:",
+    type: "single",
+    options: [
+      "Лица, являющиеся собственниками земельных участков.",
+      "Лица, владеющие и пользующиеся земельными участками на праве постоянного (бессрочного) пользования или на праве безвозмездного пользования.",
+      "Лица, владеющие и пользующиеся земельными участками на праве пожизненного наследуемого владения.",
+      "Правообладатели земельных участков."
+    ],
+    correct: [2]
+  },
+  {
+    id: 94,
+    question: "Согласно Земельному кодексу Российской Федерации, по целевому назначению земли в РФ подразделяются, в том числе, на следующие категории:",
+    type: "multiple",
+    options: [
+      "Земли сельскохозяйственного назначения, земли населённых пунктов.",
+      "Земли особо охраняемых территорий и объектов, земли лесного фонда, земли водного фонда.",
+      "Земли охраны.",
+      "Земли запаса."
+    ],
+    correct: [0, 1, 3]
+  },
+  {
+    id: 95,
+    question: "Согласно Гражданскому кодексу Российской Федерации, здания и сооружения:",
+    type: "multiple",
+    options: [
+      "Могут быть образованы только в результате раздела недвижимой вещи.",
+      "Могут быть образованы только в результате объединения нескольких недвижимых вещей.",
+      "Могут быть образованы в результате раздела недвижимой вещи или в результате объединения нескольких недвижимых вещей.",
+      "Создаются в результате строительства."
+    ],
+    correct: [2, 3]
+  },
+  {
+    id: 96,
+    question: "Согласно Гражданскому кодексу Российской Федерации, образование помещений в объектах незавершённого строительства:",
+    type: "single",
+    options: [
+      "Допускается.",
+      "Допускается в случаях, установленных законом.",
+      "Не допускается, за исключением случаев, установленных законом.",
+      "Не допускается."
+    ],
+    correct: [3]
+  },
+  {
+    id: 97,
+    question: "Согласно Гражданскому кодексу Российской Федерации, ценными бумагами являются (признаются):",
+    type: "multiple",
+    options: [
+      "Зарегистрированные права.",
+      "Зарегистрированные права, оформленные на бумажном носителе и (или) в электронной форме.",
+      "Документы.",
+      "Обязательственные и иные права."
+    ],
+    correct: [2, 3]
+  },
+  {
+    id: 98,
+    question: "Нотариус, принявший в депозит наличные деньги, должен внести их на свой публичный депозитный счёт:",
+    type: "single",
+    options: [
+      "Незамедлительно.",
+      "Незамедлительно, но не позднее окончания рабочего дня.",
+      "Не позднее двух рабочих дней, следующих за днём принятия наличных денег.",
+      "Не позднее следующего рабочего дня после дня принятия наличных денег."
+    ],
+    correct: [3]
+  },
+  {
+    id: 99,
+    question: "Вексель содержит:",
+    type: "single",
+    options: [
+      "Требование о передаче имущества.",
+      "Согласие на совершение сделки.",
+      "Денежное обязательство.",
+      "Запись о прощении долга."
+    ],
+    correct: [2]
+  },
+  {
+    id: 100,
+    question: "В случае если в векселе имеется расхождение между суммой, указанной прописью, и суммой, указанной цифрами, предпочтение отдаётся:",
+    type: "single",
+    options: [
+      "Сумме, обозначенной прописью.",
+      "Сумме, обозначенной цифрами.",
+      "Сумме, которая указана в векселе первой.",
+      "Большей сумме."
+    ],
+    correct: [0]
+  },
+  {
+    id: 101,
+    question: "Нотариус принимает вексель для совершения протеста в неплатеже:",
+    type: "single",
+    options: [
+      "В день платежа.",
+      "В один из трёх рабочих дней, которые следуют за днём, в который вексель подлежит оплате, но не позднее 12 часов последнего дня.",
+      "На следующий день после истечения даты платежа по векселю, но не позднее 12 часов следующего после этого срока дня."
+    ],
+    correct: [2]
+  },
+  {
+    id: 102,
+    question: "Индоссамент на векселе — это:",
+    type: "single",
+    options: [
+      "Простая и ничем не обусловленная передаточная надпись индоссанта на векселе, удостоверяющая переход всех прав векселедержателя к другому лицу (индоссату), за исключениями, предусмотренными Положением о переводном и простом векселе.",
+      "Простая и ничем не обусловленная передаточная надпись индоссанта на векселе, удостоверяющая переход части прав на вексельную сумму к другому лицу (индоссату).",
+      "Передаточная надпись индоссанта на векселе, удостоверяющая переход всех прав векселедержателя к другому лицу (индоссату) при наступлении определённых условий."
+    ],
+    correct: [0]
+  },
+  {
+    id: 103,
+    question: "Согласно ФЗ «О противодействии легализации (отмыванию) доходов, полученных преступным путём, и финансированию терроризма», при наличии у нотариуса оснований полагать, что сделки осуществляются в целях легализации доходов или финансирования терроризма, он обязан:",
+    type: "single",
+    options: [
+      "Принять меры по замораживанию (блокированию) денежных средств или иного имущества клиента.",
+      "Принять меры по обязательному контролю за операциями с денежными средствами или иным имуществом клиента.",
+      "Принять меры по снижению риска совершения клиентом подозрительных операций.",
+      "Уведомить об этом уполномоченный орган."
+    ],
+    correct: [3]
+  },
+  {
+    id: 104,
+    question: "Нотариус вправе отказать в совершении исполнительной надписи при наличии достаточных оснований полагать, что исполнительная надпись:",
+    type: "single",
+    options: [
+      "Может быть использована в целях финансирования лица, признанного банкротом.",
+      "Может быть использована для возбуждения исполнительного производства.",
+      "Может быть использована в целях легализации (отмывания) доходов, полученных преступным путём, или финансирования терроризма.",
+      "Может быть использована для получения необоснованного дохода."
+    ],
+    correct: [2]
+  },
+  {
+    id: 105,
+    question: "По общему правилу в предварительном согласии на совершение сделки должны быть определены:",
+    type: "single",
+    options: [
+      "Существенные условия сделки, на совершение которой даётся согласие.",
+      "Общие условия и наименование сделки, на совершение которой даётся согласие.",
+      "Наименование сделки, на совершение которой даётся согласие.",
+      "Предмет сделки, на совершение которой даётся согласие."
+    ],
+    correct: [3]
+  },
+  {
+    id: 106,
+    question: "По общему правилу при последующем согласии (одобрении) сделки должны быть указаны:",
+    type: "single",
+    options: [
+      "Существенные условия сделки, на совершение которой дано согласие.",
+      "Общие условия и наименование сделки, на совершение которой дано согласие.",
+      "Сделка, на совершение которой дано согласие.",
+      "Предмет сделки, на совершение которой дано согласие."
+    ],
+    correct: [2]
+  },
+  {
+    id: 107,
+    question: "По общему правилу оферта связывает оферента (становится для него обязательной) в момент:",
+    type: "single",
+    options: [
+      "Направления оферты адресату.",
+      "Уведомления оферентом адресата о направлении оферты.",
+      "Получения оферты адресатом.",
+      "Уведомления оферентом адресата о направлении оферты и (или) получения оферты адресатом."
+    ],
+    correct: [2]
+  },
+  {
+    id: 108,
+    question: "Предполагается ли в гражданских правоотношениях разумность и добросовестность?",
+    type: "single",
+    options: [
+      "Нет, не предполагается.",
+      "Да, предполагается.",
+      "Только разумность."
+    ],
+    correct: [1]
+  },
+  {
+    id: 109,
+    question: "Способность иметь гражданские права и нести обязанности – это:",
+    type: "single",
+    options: [
+      "Дееспособность гражданина.",
+      "Правоспособность гражданина.",
+      "Гражданская дееспособность."
+    ],
+    correct: [1]
+  },
+  {
+    id: 110,
+    question: "Способность гражданина своими действиями приобретать и осуществлять гражданские права, создавать для себя гражданские обязанности и исполнять их – это:",
+    type: "single",
+    options: [
+      "Правоспособность гражданина.",
+      "Дееспособность гражданина.",
+      "Нет таких формулировок в ГК РФ."
+    ],
+    correct: [1]
+  },
+  {
+    id: 111,
+    question: "От имени гражданина, признанного недееспособным, сделки совершают:",
+    type: "single",
+    options: [
+      "Попечитель.",
+      "Опекун.",
+      "Иные лица."
+    ],
+    correct: [1]
+  },
+  {
+    id: 112,
+    question: "Гражданин может быть по заявлению заинтересованных лиц признан судом безвестно отсутствующим, если в месте жительства нет сведений о месте его пребывания:",
+    type: "single",
+    options: [
+      "В течение года.",
+      "В течение 6 месяцев.",
+      "В течение 5 лет."
+    ],
+    correct: [0]
+  },
+  {
+    id: 113,
+    question: "Самозащита гражданских прав:",
+    type: "single",
+    options: [
+      "Допускается ГК РФ.",
+      "Не допускается ГК РФ.",
+      "Только в конкретных случаях с согласия суда общей юрисдикции."
+    ],
+    correct: [0]
+  },
+  {
+    id: 114,
+    question: "Гражданин приобретает и осуществляет права и обязанности под:",
+    type: "single",
+    options: [
+      "Своим именем, включающим фамилию и собственное имя, а также отчество.",
+      "Своим гражданством.",
+      "Своим СНИЛС, ИНН, актовой записью органов ЗАГС."
+    ],
+    correct: [0]
+  },
+  {
+    id: 115,
+    question: "Местом жительства гражданина признаётся:",
+    type: "single",
+    options: [
+      "Место, где гражданин постоянно или преимущественно проживает.",
+      "Место постоянной регистрации.",
+      "Место прописки."
+    ],
+    correct: [0]
+  },
+  {
+    id: 116,
+    question: "Полный или частичный отказ гражданина от правоспособности или дееспособности и другие сделки, направленные на ограничение правоспособности или дееспособности:",
+    type: "single",
+    options: [
+      "Недействительны в силу этических кодексов.",
+      "Возможны, т.к. это личное право.",
+      "Ничтожны, за исключением случаев, когда такие сделки допускаются законом."
+    ],
+    correct: [2]
+  },
+  {
+    id: 117,
+    question: "Гражданин отвечает по своим обязательствам:",
+    type: "single",
+    options: [
+      "Всем принадлежащим ему имуществом.",
+      "Всем принадлежащим ему имуществом, за исключением имущества, на которое в соответствии с законом не может быть обращено взыскание.",
+      "Только тем имуществом, которое установлено административным законодательством."
+    ],
+    correct: [1]
+  },
+  {
+    id: 118,
+    question: "Родители, усыновители и попечители не несут ответственности по обязательствам несовершеннолетнего эмансипированного:",
+    type: "single",
+    options: [
+      "Несут только по обязательствам, возникшим вследствие причинения им морального вреда, ущерба, убытков.",
+      "Несут частично.",
+      "Не несут."
+    ],
+    correct: [2]
+  },
+  {
+    id: 119,
+    question: "Опека устанавливается над:",
+    type: "single",
+    options: [
+      "Малолетними.",
+      "Несовершеннолетними в возрасте от 14 до 18 лет.",
+      "Малолетними, а также над гражданами, признанными судом недееспособными вследствие психического расстройства."
+    ],
+    correct: [2]
+  },
+  {
+    id: 120,
+    question: "Попечительство устанавливается над:",
+    type: "single",
+    options: [
+      "Малолетними.",
+      "Взрослыми.",
+      "Несовершеннолетними в возрасте от 14 до 18 лет, а также над гражданами, ограниченными судом в дееспособности."
+    ],
+    correct: [2]
+  },
+  {
+    id: 121,
+    question: "Опекуны и попечители выступают в защиту прав и интересов своих подопечных в отношениях с любыми лицами, в том числе в судах:",
+    type: "single",
+    options: [
+      "На основании специальной доверенности.",
+      "На основании специального договора поручительства.",
+      "Без специального полномочия."
+    ],
+    correct: [2]
+  },
+  {
+    id: 122,
+    question: "Обязательному нотариальному удостоверению не подлежат:",
+    type: "single",
+    options: [
+      "Завещание.",
+      "Брачный договор.",
+      "Соглашение о разделе совместно нажитого имущества супругами.",
+      "Доверенность на управление автомобилем."
+    ],
+    correct: [3]
+  },
+  {
+    id: 123,
+    question: "Количество экземпляров нотариального договора в соответствии со ст. 44.1 Основ законодательства РФ о нотариате определяется:",
+    type: "single",
+    options: [
+      "Количеством сторон сделки.",
+      "Числом участников договора.",
+      "Предпочтениями нотариуса."
+    ],
+    correct: [1]
+  },
+  {
+    id: 124,
+    question: "Малолетние граждане (лица, не достигшие 14 лет):",
+    type: "single",
+    options: [
+      "Могут участвовать через законных представителей в любых сделках, связанных с отчуждением недвижимого имущества.",
+      "Могут участвовать через законных представителей в любых сделках, связанных с отчуждением недвижимого имущества, однако не могут выступать дарителями.",
+      "Могут участвовать через законных представителей в любых сделках, связанных с отчуждением недвижимого имущества, однако не могут выступать дарителями и жертвовать имущество по договору пожертвования.",
+      "Не вправе отчуждать или приобретать принадлежащее им недвижимое имущество через законных представителей до достижения 14-летнего возраста."
+    ],
+    correct: [2]
+  },
+  {
+    id: 125,
+    question: "Плательщик ренты по договору пожизненного содержания с иждивением:",
+    type: "single",
+    options: [
+      "Обязан обеспечить потребности рентополучателя в жилье, питании и одежде.",
+      "Обязан осуществлять оплату ритуальных услуг после смерти рентополучателя вне зависимости от записи этой обязанности в договоре.",
+      "Вправе отчуждать, закладывать или иным способом обременять переданное в обеспечение пожизненного содержания недвижимое имущество без согласия рентополучателя."
+    ],
+    correct: [0]
+  },
+  {
+    id: 126,
+    question: "Законодательство РФ о залоге регулирует:",
+    type: "single",
+    options: [
+      "Внесение залога в депозит суда обвиняемым.",
+      "Заключение договора ссуды.",
+      "Залог, как способ обеспечения обязательств."
+    ],
+    correct: [2]
+  },
+  {
+    id: 127,
+    question: "По факту удостоверения нахождения гражданина в живых нотариус выдаёт:",
+    type: "single",
+    options: [
+      "Заключение.",
+      "Постановление.",
+      "Свидетельство.",
+      "Акт."
+    ],
+    correct: [2]
+  },
+  {
+    id: 128,
+    question: "Нотариус передаёт заявления граждан, юридических лиц другим гражданам, юридическим лицам:",
+    type: "single",
+    options: [
+      "Лично под расписку, либо по почте.",
+      "Курьером.",
+      "Все вышеперечисленное."
+    ],
+    correct: [0]
+  },
+  {
+    id: 129,
+    question: "Институт исполнительной надписи обеспечивает защиту прав:",
+    type: "single",
+    options: [
+      "Нотариуса.",
+      "Кредитора.",
+      "Должника.",
+      "Государства."
+    ],
+    correct: [1]
+  },
+  {
+    id: 130,
+    question: "Взыскание по исполнительной надписи нотариуса производится:",
+    type: "single",
+    options: [
+      "Органами внутренних дел.",
+      "Службой судебных приставов.",
+      "Нотариусом.",
+      "Налоговыми органами."
+    ],
+    correct: [1]
+  },
+  {
+    id: 131,
+    question: "Обеспечивая доказательства нотариус:",
+    type: "single",
+    options: [
+      "Назначает экспертизу.",
+      "Производит осмотр места происшествия.",
+      "Допрашивает подозреваемого."
+    ],
+    correct: [0]
+  },
+  {
+    id: 132,
+    question: "Обеспечение доказательств производится без извещения одной из сторон и заинтересованных лиц:",
+    type: "single",
+    options: [
+      "По усмотрению нотариуса.",
+      "В случае затруднительности доступа к осматриваемым доказательствам.",
+      "Когда нельзя определить, кто впоследствии будет участвовать в деле."
+    ],
+    correct: [2]
+  },
+  {
+    id: 133,
+    question: "Нотариус при осмотре письменных и вещественных доказательств составляет:",
+    type: "single",
+    options: [
+      "Протокол.",
+      "Постановление.",
+      "Свидетельство.",
+      "Акт."
+    ],
+    correct: [0]
+  },
+  {
+    id: 134,
+    question: "В документе, оформляемом родителями для выезда их ребёнка из РФ за границу, обязательно указывается:",
+    type: "single",
+    options: [
+      "Срок выезда.",
+      "Отсутствие возражения со стороны органа опеки и попечительства.",
+      "Состояние здоровья ребёнка."
+    ],
+    correct: [0]
+  },
+  {
+    id: 135,
+    question: "При удостоверении договоров нотариус проверяет принадлежность имущества:",
+    type: "single",
+    options: [
+      "Только при отчуждении и залоге имущества, права на которое подлежат государственной регистрации в порядке, установленном гражданским законодательством.",
+      "Только при отчуждении имущества, но не при залоге.",
+      "При отчуждении и залоге любых видов имущества.",
+      "Только при отчуждении и обременении ипотекой недвижимого имущества."
+    ],
+    correct: [2]
+  },
+  {
+    id: 136,
+    question: "Вместо письменного извещения остальных участников долевой собственности продавцом доли может быть размещено извещение на сайте rosreestr.ru, если число участников долевой собственности на недвижимое имущество (кроме жилых помещений) превышает:",
+    type: "single",
+    options: [
+      "Десять.",
+      "Двадцать.",
+      "Тридцать.",
+      "Пятьдесят."
+    ],
+    correct: [1]
+  },
+  {
+    id: 137,
+    question: "Договор мены подразумевает, что (выберите вариант, не содержащий ошибочного утверждения):",
+    type: "single",
+    options: [
+      "Объекты договора мены всегда равноценны.",
+      "Объекты мены могут быть различными по цене, договором может быть предусмотрена доплата одной из сторон за объект, имеющий более высокую цену.",
+      "Отсутствуют цена объектов, и расчёты денежными средствами между сторонами.",
+      "Право собственности на объекты мены возникает у сторон не одновременно."
+    ],
+    correct: [1]
+  },
+  {
+    id: 138,
+    question: "Передача недвижимости по договору купли-продажи происходит:",
+    type: "single",
+    options: [
+      "После внесения записи в ЕГРН путём получения в Росреестре выписки из ЕГРН, подтверждающей возникновение права собственности Покупателя.",
+      "Путём подписания отдельного документа – договора передачи.",
+      "Путём подписания отдельного документа – передаточного акта.",
+      "Путём передачи ключей."
+    ],
+    correct: [2]
+  },
+  {
+    id: 139,
+    question: "Удостоверительная надпись нотариуса на договоре купли-продажи недвижимого имущества гласит:",
+    type: "single",
+    options: [
+      "Договор подписан в моём присутствии.",
+      "Договор подлежит государственной регистрации.",
+      "Волеизъявление сторон проверено."
+    ],
+    correct: [0]
+  },
+  {
+    id: 140,
+    question: "При заключении договора залога залогодатель обязан…",
+    type: "single",
+    options: [
+      "Предупредить в письменной форме залогодержателя о всех известных ему к моменту заключения договора правах третьих лиц на предмет залога (вещных правах, правах, возникающих из договоров аренды, ссуды и т.п.).",
+      "Предупредить в устной форме залогодержателя о всех известных ему к моменту заключения договора правах третьих лиц на предмет залога.",
+      "Вправе не предупреждать залогодержателя о всех известных ему к моменту заключения договора правах третьих лиц на предмет залога."
+    ],
+    correct: [0]
+  },
+  {
+    id: 141,
+    question: "В каких случаях взыскание на предмет залога может быть обращено только по решению суда?",
+    type: "multiple",
+    options: [
+      "Если для заключения договора о залоге требовалось согласие или разрешение другого лица или органа.",
+      "Предметом залога является имущество, имеющее значительную историческую, художественную или иную культурную ценность для общества.",
+      "Залогодатель — физическое лицо в установленном порядке признано безвестно отсутствующим."
+    ],
+    correct: [1, 2]
+  },
+  {
+    id: 142,
+    question: "Предметом залога не может быть…",
+    type: "single",
+    options: [
+      "Вещи и имущественные права.",
+      "Имущество, на которое не допускается обращение взыскания.",
+      "Требования, неразрывно связанные с личностью кредитора, в частности требования об алиментах, о возмещении вреда, причинённого жизни или здоровью."
+    ],
+    correct: [2]
+  },
+  {
+    id: 143,
+    question: "Нотариус выдаёт краткую выписку из реестра уведомлений о залоге движимого имущества:",
+    type: "single",
+    options: [
+      "По просьбе залогодателя.",
+      "По просьбе любого лица.",
+      "По просьбе залогодержателя."
+    ],
+    correct: [1]
+  },
+  {
+    id: 144,
+    question: "Опцион на заключение договора подписывается:",
+    type: "single",
+    options: [
+      "Оферентом.",
+      "Акцептантом.",
+      "Участниками соглашения."
+    ],
+    correct: [2]
+  },
+  {
+    id: 145,
+    question: "Заявление о принятии от должника на депонирование движимых вещей, безналичных денежных средств или бездокументарных ценных бумаг в целях их передачи кредитору согласно простой письменной сделки подаётся нотариусу:",
+    type: "single",
+    options: [
+      "Должником.",
+      "Кредитором.",
+      "Совместно кредитором и должником.",
+      "Должником и кредитором в отдельных заявлениях."
+    ],
+    correct: [2]
+  },
+  {
+    id: 146,
+    question: "Передача нотариусом безналичных денежных средств кредитору осуществляется путём:",
+    type: "single",
+    options: [
+      "Постановления нотариуса.",
+      "Распоряжения нотариуса.",
+      "Доверенности нотариуса.",
+      "Заявления нотариуса."
+    ],
+    correct: [1]
+  },
+  {
+    id: 147,
+    question: "Денежные средства, находящиеся в депозите нотариуса более десяти лет и не востребованные должником или кредитором:",
+    type: "single",
+    options: [
+      "Поступают в собственность нотариуса.",
+      "Поступают в собственность банка.",
+      "Передаются нотариусом в казну РФ.",
+      "Передаются нотариусом в Федеральную нотариальную палату для формирования фонда поддержки нотариата в труднодоступных и малонаселённых местностях."
+    ],
+    correct: [2]
+  },
+  {
+    id: 148,
+    question: "Выдать электронный документ лицу, сдавшему его на хранение, по заявлению, подписанному усиленной квалифицированной электронной подписью этого лица, вправе:",
+    type: "single",
+    options: [
+      "Нотариус, принявший на хранение электронный документ.",
+      "Нотариус, осуществляющий деятельность в нотариальном округе, где проживает лицо, сдавшее документ на хранение.",
+      "Нотариус, имеющий специальный статус держателя реестра электронных документов.",
+      "Любой нотариус на территории Российской Федерации."
+    ],
+    correct: [3]
+  },
+  {
+    id: 149,
+    question: "Удостоверение равнозначности электронного документа, изготовленного нотариусом путём преобразования представленного нотариусу электронного документа посредством изменения его формата (конвертации), означает:",
+    type: "single",
+    options: [
+      "Подтверждение содержания изготовленного нотариусом электронного документа содержанию представленного нотариусу электронного документа.",
+      "Подтверждение тождественности содержания изготовленного нотариусом путём конвертации электронного документа содержанию представленного нотариусу электронного документа.",
+      "Подтверждение содержания изготовленного нотариусом электронного документа истинному волеизъявлению заявителя.",
+      "Подтверждение подлинности электронного документа."
+    ],
+    correct: [1]
+  },
+  {
+    id: 150,
+    question: "Обязательным действием при составлении акта о морском протесте является…",
+    type: "single",
+    options: [
+      "Опрос капитана.",
+      "Опрос не менее двух свидетелей из числа командного состава судна и двух свидетелей из судовой команды.",
+      "Осмотр судна."
+    ],
+    correct: [0]
+  },
+  {
+    id: 151,
+    question: "Имущество крестьянского (фермерского) хозяйства, созданного без образования юридического лица, может принадлежать…",
+    type: "single",
+    options: [
+      "Членам хозяйства на праве общей долевой собственности.",
+      "Хозяйству на праве собственности.",
+      "Главе хозяйства на праве собственности."
+    ],
+    correct: [0]
+  },
+  {
+    id: 152,
+    question: "Если в составе крестьянского (фермерского) хозяйства находятся супруги, то их право на общее имущество хозяйства определяется…",
+    type: "single",
+    options: [
+      "Правилами о совместной собственности супругов.",
+      "Правилами о совместной собственности такого хозяйства.",
+      "Исключительно соглашением супругов."
+    ],
+    correct: [1]
+  },
+  {
+    id: 153,
+    question: "Допускается ли отчуждение оборотоспособного земельного участка без находящихся на нём зданий, сооружений в случае, если они принадлежат на праве собственности одному лицу?",
+    type: "single",
+    options: [
+      "Не допускается.",
+      "Допускается, если земельный участок относится к землям населённых пунктов.",
+      "Допускается, если размер земельного участка превышает 20 гектар."
+    ],
+    correct: [0]
+  },
+  {
+    id: 154,
+    question: "Право дарителя отменить дарение в случае, если он переживёт одаряемого…",
+    type: "single",
+    options: [
+      "Может предусматриваться в договоре.",
+      "Не может предусматриваться в договоре.",
+      "Должно предусматриваться в договоре, если одаряемый не является близким родственником."
+    ],
+    correct: [0]
+  },
+  {
+    id: 155,
+    question: "Соглашение о переводе долга, заключённое при отсутствии согласия кредитора…",
+    type: "single",
+    options: [
+      "Ничтожно.",
+      "Может быть признано недействительным по иску кредитора только в случае, когда доказано, что другая сторона соглашения знала или должна была знать о неполучении согласия.",
+      "Может быть признано недействительным по иску кредитора только в случае, когда доказано, что перевод долга привёл к убыткам кредитора."
+    ],
+    correct: [0]
+  },
+  {
+    id: 156,
+    question: "Исполнительная надпись может быть совершена нотариусом, если со дня, когда обязательство должно быть исполнено, прошло не более…",
+    type: "single",
+    options: [
+      "Одного года.",
+      "Двух лет.",
+      "Трёх лет."
+    ],
+    correct: [1]
+  },
+  {
+    id: 157,
+    question: "Требуются ли при составлении завещания на земельную долю документы, удостоверяющие право?",
+    type: "single",
+    options: [
+      "Требуются.",
+      "Требуются, поскольку являются неотъемлемой частью завещания.",
+      "Не требуются."
+    ],
+    correct: [2]
+  },
+  {
+    id: 158,
+    question: "При передаче нотариусом документов физических и юридических лиц другим физическим и юридическим лицам в состав передаваемых документов включается…",
+    type: "single",
+    options: [
+      "Свидетельство о передаче документов.",
+      "Сопроводительное письмо нотариуса.",
+      "Заявление лица, обратившегося за совершением такого нотариального действия."
+    ],
+    correct: [1]
+  },
+  {
+    id: 159,
+    question: "При проведении допроса свидетеля в порядке обеспечения доказательств нотариус…",
+    type: "single",
+    options: [
+      "Просит свидетеля изложить показания в собственноручно написанном заявлении.",
+      "Запрашивает в отношении свидетеля сведения о банкротстве.",
+      "Предупреждает об уголовной ответственности за отказ от дачи показаний и за дачу заведомо ложных показаний."
+    ],
+    correct: [2]
+  },
+  {
+    id: 160,
+    question: "Какие виды обеспечения доказательств в соответствии со ст. 103 Основ законодательства РФ о нотариате могут быть совершены нотариусом удалённо:",
+    type: "single",
+    options: [
+      "Обеспечение доказательств в виде осмотра документа (пакета документов), полученного от другого нотариуса в электронном виде и подписанного усиленной квалифицированной электронной подписью этого нотариуса.",
+      "Обеспечение доказательств в виде осмотра документа, полученного от заявителя в электронном виде, с участием эксперта, приглашённого нотариусом.",
+      "Обеспечение доказательств в виде осмотра информации, находящейся в информационно-телекоммуникационной сети «Интернет»."
+    ],
+    correct: [2]
+  },
+  {
+    id: 161,
+    question: "Какие расходы возмещают заинтересованные физические и юридические лица нотариусу, при условии совершения нотариальных действий вне помещения нотариальной конторы?",
+    type: "single",
+    options: [
+      "Не возмещают расходы.",
+      "Возмещают фактические транспортные расходы.",
+      "Возмещают транспортные расходы в размере, увеличенном в полтора раза."
+    ],
+    correct: [1]
+  },
+  {
+    id: 162,
+    question: "Максимальный срок действия доверенности составляет:",
+    type: "single",
+    options: [
+      "1 год.",
+      "3 года.",
+      "10 лет.",
+      "Такой срок законом не установлен."
+    ],
+    correct: [3]
+  },
+  {
+    id: 163,
+    question: "Если в доверенности не указан срок её действия, она считается действительной:",
+    type: "single",
+    options: [
+      "В течение десяти лет.",
+      "В течение трёх лет.",
+      "В течение одного года.",
+      "До момента её отмены представляемым."
+    ],
+    correct: [2]
+  },
+  {
+    id: 164,
+    question: "Доверенность, в которой не указана дата её совершения:",
+    type: "single",
+    options: [
+      "Действительна.",
+      "Оспорима.",
+      "Ничтожна.",
+      "Законом не урегулировано."
+    ],
+    correct: [2]
+  },
+  {
+    id: 165,
+    question: "Если иное не указано в доверенности или не установлено законом, представитель, передавший полномочия другому лицу в порядке передоверия:",
+    type: "single",
+    options: [
+      "Не утрачивает соответствующие полномочия.",
+      "Утрачивает соответствующие полномочия.",
+      "Утрачивает часть полномочий.",
+      "Не утрачивает часть полномочий, прямо предусмотренных первой доверенностью."
+    ],
+    correct: [0]
+  },
+  {
+    id: 166,
+    question: "Доверенность на подачу заявлений о государственной регистрации прав или сделок должна быть совершена:",
+    type: "single",
+    options: [
+      "В простой письменной форме.",
+      "В форме приравненной к нотариальной.",
+      "В нотариальной форме.",
+      "В любой из выше перечисленных."
+    ],
+    correct: [2]
+  },
+  {
+    id: 167,
+    question: "Доверенность на распоряжение зарегистрированными в государственных реестрах правами должна быть совершена:",
+    type: "single",
+    options: [
+      "В простой письменной форме.",
+      "В форме, приравненной к нотариальной.",
+      "В нотариальной форме.",
+      "В любой из выше перечисленных."
+    ],
+    correct: [2]
+  },
+  {
+    id: 168,
+    question: "Доверенность, в которой среди прочих полномочий присутствует право на заключение сделки по отчуждению доли ООО, должна быть совершена:",
+    type: "single",
+    options: [
+      "В форме, приравненной к нотариальной.",
+      "В нотариальной форме.",
+      "В простой письменной форме.",
+      "В любой из выше перечисленных."
+    ],
+    correct: [1]
+  },
+  {
+    id: 169,
+    question: "Доверенности от имени малолетних и от имени недееспособных граждан выдают:",
+    type: "single",
+    options: [
+      "Органы опеки и попечительства.",
+      "Законные представители.",
+      "Родственники.",
+      "Родственники с согласия органа опеки и попечительства."
+    ],
+    correct: [1]
+  },
+  {
+    id: 170,
+    question: "Правило о нотариальном удостоверении доверенности, выдаваемой в порядке передоверия, не применяется к доверенностям:",
+    type: "single",
+    options: [
+      "Выдаваемым в порядке передоверия юридическими лицами.",
+      "Выдаваемым в порядке передоверия гражданами.",
+      "Применяется в любом случае.",
+      "Не применяется в любом случае."
+    ],
+    correct: [0]
+  },
+  {
+    id: 171,
+    question: "Срок действия доверенности, выданной в порядке передоверия:",
+    type: "single",
+    options: [
+      "Может превышать срок действия доверенности, на основании которой она выдана.",
+      "Должен быть меньше срока действия доверенности, на основании которой она выдана.",
+      "Не может превышать срок действия доверенности, на основании которой она выдана.",
+      "Должен быть только на срок действия доверенности, на основании которой она выдана."
+    ],
+    correct: [2]
+  },
+  {
+    id: 172,
+    question: "При удостоверении доверенности от имени юридического лица нотариус не:",
+    type: "single",
+    options: [
+      "Устанавливает личность лица, обратившегося за совершением нотариального действия.",
+      "Устанавливает личность лица, на имя которого выдаётся доверенность.",
+      "Выясняет дееспособность обратившегося лица.",
+      "Проверяет правоспособность юридического лица и полномочия его представителя."
+    ],
+    correct: [1]
+  },
+  {
+    id: 173,
+    question: "Лица, уполномоченные удостоверять доверенности, приравниваемые к нотариальным:",
+    type: "single",
+    options: [
+      "Руководители жилищно-эксплуатационных организаций по месту жительства гражданина.",
+      "Ответственные должностные лица банка.",
+      "Начальники соответствующих мест лишения свободы.",
+      "Руководители организаций, в которых работают граждане."
+    ],
+    correct: [2]
+  },
+  {
+    id: 174,
+    question: "Обязательному нотариальному удостоверению не подлежат доверенности:",
+    type: "single",
+    options: [
+      "На совершение сделок, требующих нотариальной формы.",
+      "На подачу заявлений о государственной регистрации прав или сделок.",
+      "На распоряжение зарегистрированными в государственных реестрах правами.",
+      "На получение заработной платы, вознаграждения авторов и изобретателей."
+    ],
+    correct: [3]
+  },
+  {
+    id: 175,
+    question: "Обязанность по извещению доверителя о выданной доверенности в порядке передоверия возлагается на:",
+    type: "single",
+    options: [
+      "Нотариуса, удостоверившего доверенность в порядке передоверия.",
+      "Лицо, передавшее полномочия другому лицу в порядке передоверия.",
+      "Лицо, которому переданы полномочия в порядке передоверия.",
+      "Третье лицо, которому стало известно об удостоверении доверенности в порядке передоверия."
+    ],
+    correct: [1]
+  },
+  {
+    id: 176,
+    question: "В случае, если в отношении наследодателя производство по делу о банкротстве возбуждено после открытия наследственного дела, нотариус осуществляет полномочия в деле о банкротстве со дня:",
+    type: "single",
+    options: [
+      "Открытия наследственного дела.",
+      "Открытия наследства.",
+      "Получения соответствующего уведомления от финансового управляющего.",
+      "Принятия арбитражным судом решения о банкротстве наследодателя."
+    ],
+    correct: [2]
+  },
+  {
+    id: 177,
+    question: "Нотариус, ведущий наследственное дело, обязан проверить в единой информационной системе нотариата наличие сведений о составлении наследодателем завещания и установить его содержание:",
+    type: "single",
+    options: [
+      "Незамедлительно после открытия наследственного дела.",
+      "Незамедлительно, но не позднее окончания рабочего дня после открытия наследственного дела.",
+      "Не позднее одного рабочего дня, следующего за днём открытия наследственного дела.",
+      "Не позднее двух рабочих дней, следующих за днём открытия наследственного дела."
+    ],
+    correct: [2]
+  },
+  {
+    id: 178,
+    question: "Право на принятие наследства имеют:",
+    type: "single",
+    options: [
+      "Наследники любой очереди, не лишённые наследства, как призванные, так и не призванные к наследованию.",
+      "Только призванные к наследованию наследники.",
+      "Наследники по закону или по завещанию, любой очереди, не лишённые наследства.",
+      "Наследники любой очереди, право на принятие наследства которыми могло возникнуть не ранее открытия наследства."
+    ],
+    correct: [1]
+  },
+  {
+    id: 179,
+    question: "Завещатель не вправе:",
+    type: "single",
+    options: [
+      "Завещанием лишить наследства наследника, имеющего обязательную долю в наследстве.",
+      "Любым образом определить доли наследников в наследстве.",
+      "Лишить наследства одного или нескольких наследников по закону, не указывая причин такого лишения.",
+      "Отменить или изменить совершённое завещание."
+    ],
+    correct: [0]
+  },
+  {
+    id: 180,
+    question: "Обязательному нотариальному удостоверению подлежат:",
+    type: "single",
+    options: [
+      "Завещания, приравненные к нотариально удостоверенным завещаниям.",
+      "Завещательные распоряжения правами на денежные средства в банках.",
+      "Закрытые завещания.",
+      "Завещания в чрезвычайных обстоятельствах."
+    ],
+    correct: [2]
+  },
+  {
+    id: 181,
+    question: "Нотариально удостоверенное завещание должно быть:",
+    type: "single",
+    options: [
+      "Написано душеприказчиком.",
+      "Записано нотариусом со слов завещателя.",
+      "Написано завещателем в присутствии наследника."
+    ],
+    correct: [1]
+  },
+  {
+    id: 182,
+    question: "Если в силу физических недостатков, тяжёлой болезни или неграмотности завещание не может быть собственноручно подписано завещателем, его подписывает:",
+    type: "single",
+    options: [
+      "Рукоприкладчик.",
+      "Понятой.",
+      "Свидетель.",
+      "Технический секретарь нотариуса."
+    ],
+    correct: [0]
+  },
+  {
+    id: 183,
+    question: "Лица, имеющие право на обязательную долю в наследстве, наследуют независимо от содержания завещания, составленного после 01 марта 2002 года, в сравнении с долей, которая причиталась бы каждому из них при наследовании по закону, не менее:",
+    type: "single",
+    options: [
+      "3/4.",
+      "2/3.",
+      "1/2.",
+      "1/4."
+    ],
+    correct: [2]
+  },
+  {
+    id: 184,
+    question: "Завещательное возложение – это:",
+    type: "single",
+    options: [
+      "Исполнение за счёт наследства какой-либо обязанности имущественного характера в пользу одного или нескольких лиц.",
+      "Обязанность совершить какое-либо действие имущественного или неимущественного характера, направленное на осуществление общеполезной цели.",
+      "Обеспечение перехода к наследникам причитающегося им наследственного имущества в соответствии с выраженной в завещании волей наследодателя и законом.",
+      "Установленные в завещании ограничения для наследников по распоряжению имуществом."
+    ],
+    correct: [1]
+  },
+  {
+    id: 185,
+    question: "Наследодатель может отменить или изменить завещание посредством:",
+    type: "single",
+    options: [
+      "Направления нотариусу, удостоверившему завещание, заявления об отмене завещания, подлинность подписи на котором должна быть засвидетельствована нотариально.",
+      "Извещения через нотариуса наследников, указанных в завещании, о его отмене или изменении.",
+      "Нового завещания."
+    ],
+    correct: [2]
+  },
+  {
+    id: 186,
+    question: "Наследство может быть оформлено:",
+    type: "single",
+    options: [
+      "Любым нотариусом.",
+      "Как государственным нотариусом, так и частнопрактикующим нотариусом, которому это поручено вышестоящими органами.",
+      "Только частнопрактикующим нотариусом, которому поручено ведение наследственных дел совместным решением территориального органа юстиции и нотариальной палаты субъекта РФ.",
+      "Только государственным нотариусом."
+    ],
+    correct: [1]
+  },
+  {
+    id: 187,
+    question: "Если местом открытия наследства является г. Москва, то для открытия наследственного дела в случае смерти наследодателя в 2010 году можно обратиться:",
+    type: "single",
+    options: [
+      "Только в нотариальную контору, за которой закреплено место жительства наследодателя.",
+      "К любому нотариусу г. Москвы.",
+      "В Московскую городскую нотариальную палату.",
+      "К любому из нотариусов г. Москвы, которым поручено ведение наследственных дел по месту жительства и первой букве фамилии наследодателя."
+    ],
+    correct: [1]
+  },
+  {
+    id: 188,
+    question: "Временем открытия наследства является:",
+    type: "single",
+    options: [
+      "День открытия наследственного дела нотариусом.",
+      "День принятия решения органами ЗАГС об объявлении гражданина умершим.",
+      "Момент смерти гражданина."
+    ],
+    correct: [2]
+  },
+  {
+    id: 189,
+    question: "Местом открытия наследства признаётся:",
+    type: "single",
+    options: [
+      "Последнее место жительства наследодателя или место нахождения наследственного имущества – по выбору наследников.",
+      "Последнее место жительства наследодателя.",
+      "Последнее место пребывания наследодателя."
+    ],
+    correct: [1]
+  },
+  {
+    id: 190,
+    question: "Способами принятия наследства не являются:",
+    type: "single",
+    options: [
+      "Подача нотариусу или уполномоченному должностному лицу заявления наследника о принятии наследства.",
+      "Подача вышеуказанным лицам заявления наследника о выдаче свидетельства о праве на наследство.",
+      "Подача заявления о принятии наследства в Федеральную нотариальную палату.",
+      "Совершение действий, свидетельствующих о фактическом принятии наследства."
+    ],
+    correct: [2]
+  },
+  {
+    id: 191,
+    question: "Общий срок принятия наследства:",
+    type: "single",
+    options: [
+      "1 месяц.",
+      "3 месяца.",
+      "6 месяцев.",
+      "1 год."
+    ],
+    correct: [2]
+  },
+  {
+    id: 192,
+    question: "Наследник вправе отказаться от наследства после дня открытия наследства в течение:",
+    type: "single",
+    options: [
+      "1 месяца.",
+      "3 месяцев.",
+      "6 месяцев.",
+      "Одного года."
+    ],
+    correct: [2]
+  },
+  {
+    id: 193,
+    question: "При отказе от наследства допускается отказ в пользу других лиц:",
+    type: "single",
+    options: [
+      "От наследства под условием.",
+      "От части причитающегося наследства.",
+      "Наследников по закону любой очереди независимо от призвания к наследованию, не лишённых наследства.",
+      "Наследников по закону в пользу наследников по закону той же очереди, не лишённых наследства."
+    ],
+    correct: [2]
+  },
+  {
+    id: 194,
+    question: "Нотариус открывает наследственное дело на основании:",
+    type: "single",
+    options: [
+      "Свидетельства о смерти гражданина, являющегося наследодателем.",
+      "Вступившего в законную силу решения суда об объявлении гражданина умершим.",
+      "Заявления о принятии наследства."
+    ],
+    correct: [2]
+  },
+  {
+    id: 195,
+    question: "В состав наследственной массы входят:",
+    type: "single",
+    options: [
+      "Право на алименты.",
+      "Принадлежащее наследодателю на день открытия наследства имущество.",
+      "Право на возмещение морального вреда."
+    ],
+    correct: [1]
+  },
+  {
+    id: 196,
+    question: "Право на обязательную долю в первую очередь удовлетворяется:",
+    type: "single",
+    options: [
+      "Из завещанной части имущества.",
+      "Из завещанной и незавещанной части имущества в равных долях.",
+      "Из незавещанной части имущества.",
+      "По усмотрению нотариуса."
+    ],
+    correct: [2]
+  },
+  {
+    id: 197,
+    question: "В случае смерти наследодателя, являвшегося единственным участником Общества с ограниченной ответственностью, данное имущество:",
+    type: "single",
+    options: [
+      "Переходит в собственность РФ.",
+      "Не включается в состав наследства.",
+      "Включается в состав наследства.",
+      "Переходит в собственность субъекта РФ."
+    ],
+    correct: [2]
+  },
+  {
+    id: 198,
+    question: "Пасынки и падчерицы, как наследники седьмой очереди, призываются к наследованию в случае, если:",
+    type: "single",
+    options: [
+      "Брак их родителя и наследодателя был расторгнут до момента открытия наследства.",
+      "Брак их родителя и наследодателя был прекращён в связи со смертью их родителя.",
+      "По решению суда их родитель был признан безвестно отсутствующим.",
+      "По решению суда их родитель был признан недееспособным."
+    ],
+    correct: [1]
+  },
+  {
+    id: 199,
+    question: "Завещание может быть совершено:",
+    type: "single",
+    options: [
+      "Ограниченно дееспособным гражданином.",
+      "Недееспособным гражданином.",
+      "Дееспособным в полном объёме гражданином."
+    ],
+    correct: [2]
+  },
+  {
+    id: 200,
+    question: "Завещатель может совершить завещание в пользу:",
+    type: "single",
+    options: [
+      "Одного или нескольких лиц, как входящих, так и не входящих в круг наследников по закону.",
+      "Только одного лица, не входящего в круг наследников по закону.",
+      "Только нескольких лиц, входящих в круг наследников по закону.",
+      "Только одного или нескольких лиц, входящих в круг наследников по закону."
+    ],
+    correct: [0]
+  },
+  {
+    id: 201,
+    question: "В завещании могут содержаться распоряжения:",
+    type: "single",
+    options: [
+      "Двух лиц.",
+      "Двух и более лиц.",
+      "Одного гражданина.",
+      "Как одного, так и нескольких лиц."
+    ],
+    correct: [2]
+  },
+  {
+    id: 202,
+    question: "Завещание как односторонняя сделка создаёт права и обязанности:",
+    type: "single",
+    options: [
+      "В день смерти наследодателя.",
+      "В день подачи заявления о принятии наследства.",
+      "В момент её нотариального удостоверения.",
+      "После истечения шестимесячного срока для принятия наследства."
+    ],
+    correct: [0]
+  },
+  {
+    id: 203,
+    question: "Признаком завещания, совершённого в чрезвычайных ситуациях, не является:",
+    type: "single",
+    options: [
+      "Совершение его в простой письменной форме.",
+      "Присутствие при его написании двух свидетелей.",
+      "Написание завещания на специальном бланке.",
+      "Собственноручное написание и подписание завещания."
+    ],
+    correct: [2]
+  },
+  {
+    id: 204,
+    question: "Исполнитель завещания имеет право на получение вознаграждения в случае, если:",
+    type: "single",
+    options: [
+      "Это предусмотрено завещанием.",
+      "Для этого достаточно незавещанной части наследуемого имущества.",
+      "Наследники по завещанию дадут на это согласие.",
+      "Не имеет права на вознаграждение."
+    ],
+    correct: [0]
+  },
+  {
+    id: 205,
+    question: "Возложение на одного или нескольких наследников по завещанию или по закону обязанности совершить какое-либо действие имущественного или неимущественного характера, направленное на осуществление общеполезной цели, называется:",
+    type: "single",
+    options: [
+      "Завещательным отказом.",
+      "Завещательным напутствием.",
+      "Завещательным возложением.",
+      "Завещательным приказом."
+    ],
+    correct: [2]
+  },
+  {
+    id: 206,
+    question: "Возложение на одного или нескольких наследников исполнения за счёт наследства какой-либо обязанности имущественного характера в пользу одного или нескольких лиц, которые приобретают право требовать исполнения этой обязанности, называется:",
+    type: "single",
+    options: [
+      "Завещательное возложение.",
+      "Завещательный отказ.",
+      "Завещательный приказ.",
+      "Завещательной просьбой."
+    ],
+    correct: [1]
+  },
+  {
+    id: 207,
+    question: "В случае недействительности последующего завещания наследование осуществляется:",
+    type: "single",
+    options: [
+      "На основании закона.",
+      "На основании прежнего завещания.",
+      "На основании закона или прежнего завещания по соглашению наследников.",
+      "На основании решения нотариуса."
+    ],
+    correct: [1]
+  },
+  {
+    id: 208,
+    question: "Выберите верное понятие: «Если наследник умер после открытия наследства, не успев его принять, право на принятие причитавшегося ему наследства переходит к его наследникам по закону, а если всё имущество было завещано — к его наследникам по завещанию»:",
+    type: "single",
+    options: [
+      "Наследование по праву представления.",
+      "Наследственная трансмиссия.",
+      "Подназначение наследника.",
+      "Завещательное возложение."
+    ],
+    correct: [1]
+  },
+  {
+    id: 209,
+    question: "Срок, предназначенный для отказа от наследства:",
+    type: "single",
+    options: [
+      "Меньше срока для принятия наследства и составляет три месяца.",
+      "Больше срока для принятия наследства и возможен после шести месяцев.",
+      "Равен сроку для принятия наследства и составляет шесть месяцев."
+    ],
+    correct: [2]
+  },
+  {
+    id: 210,
+    question: "Для охраны наследства нотариус производит:",
+    type: "single",
+    options: [
+      "Изъятие наследственного имущества.",
+      "Опись наследственного имущества.",
+      "Арест наследственного имущества.",
+      "Производит изъятие из гражданского оборота."
+    ],
+    correct: [1]
+  },
+  {
+    id: 211,
+    question: "Наследники, принявшие наследство, отвечают по долгам наследодателя:",
+    type: "single",
+    options: [
+      "Солидарно.",
+      "В части имущества, не уменьшающего размер их долей.",
+      "Субсидиарно.",
+      "Каждый несёт полную имущественную ответственность."
+    ],
+    correct: [0]
+  },
+  {
+    id: 212,
+    question: "Удовлетворению требований о возмещении расходов в первую очередь подлежит:",
+    type: "single",
+    options: [
+      "Возмещение расходов, связанных с болезнью и похоронами наследодателя.",
+      "Возмещение расходов на охрану наследственного имущества.",
+      "Возмещение долгов наследодателя.",
+      "Возмещение расходов, связанных с исполнением завещания."
+    ],
+    correct: [0]
+  },
+  {
+    id: 213,
+    question: "В случае, если наследник имеет право на приобретение наследства по нескольким основаниям, он может принять наследство:",
+    type: "single",
+    options: [
+      "Как по всем основаниям, так и по одному основанию на своё усмотрение.",
+      "Только по всем основаниям одновременно.",
+      "Только по одному основанию.",
+      "Законом не урегулировано."
+    ],
+    correct: [0]
+  },
+  {
+    id: 214,
+    question: "Наследник, принявший наследство, считается собственником наследственного имущества:",
+    type: "single",
+    options: [
+      "С момента выдачи свидетельства о праве на наследство.",
+      "С момента принятия нотариусом заявления о принятии наследства.",
+      "С момента открытия наследства.",
+      "По истечении шести месяцев со дня открытия наследства."
+    ],
+    correct: [2]
+  },
+  {
+    id: 215,
+    question: "Каким(и) способами возможно восстановление срока для принятия наследства:",
+    type: "single",
+    options: [
+      "Только по решению суда.",
+      "Только с согласия наследников, принявших наследство.",
+      "Как по решению суда, так и с согласия наследников, принявших наследство.",
+      "Данный срок восстановлению не подлежит."
+    ],
+    correct: [2]
+  },
+  {
+    id: 216,
+    question: "Завещание, условия которого предусматривают создание наследственного фонда, должно включать в себя:",
+    type: "single",
+    options: [
+      "Устав фонда.",
+      "Решение завещателя об учреждении наследственного фонда, устав фонда, порядок распределения прибыли между наследниками, условия управления фондом и порядок его ликвидации.",
+      "Решение завещателя об учреждении наследственного фонда, устав фонда, а также условия управления фондом.",
+      "Решение завещателя об учреждении наследственного фонда, устав фонда, сведения о руководителе фонда, о составе имущества фонда и порядок распределения прибыли между наследниками."
+    ],
+    correct: [2]
+  },
+  {
+    id: 217,
+    question: "После выдачи свидетельства о праве на наследство нотариус:",
+    type: "single",
+    options: [
+      "Обязан незамедлительно, но не позднее окончания рабочего дня представить в электронной форме заявление о государственной регистрации прав и прилагаемые к нему документы в орган регистрации прав.",
+      "Обязан незамедлительно, но не позднее двух рабочих дней представить в электронной или письменной форме заявление о государственной регистрации прав и прилагаемые к нему документы в орган регистрации прав.",
+      "Обязан незамедлительно, но не позднее окончания рабочего дня или в сроки, установленные в заявлении о принятии наследства, представить в электронной форме заявление о государственной регистрации прав и прилагаемые к нему документы в орган регистрации прав.",
+      "Обязан незамедлительно, но не позднее окончания рабочего дня или в сроки, установленные в заявлении о принятии наследства, представить в электронной форме заявление о государственной регистрации прав и прилагаемые к нему документы в орган регистрации прав, если наследники не возражают против подачи такого заявления нотариусом."
+    ],
+    correct: [0]
+  },
+  {
+    id: 218,
+    question: "Правила о наследовании нетрудоспособными лицами применяются также:",
+    type: "single",
+    options: [
+      "К женщинам, достигшим 55-летнего возраста, и мужчинам, достигшим 60-летнего возраста.",
+      "К женщинам, достигшим 55-летнего возраста, и мужчинам, достигшим 60-летнего возраста, если они проживают в районах Крайнего Севера или приравненных к ним районах.",
+      "К женщинам и мужчинам, достигшим пенсионного возраста по выслуге лет.",
+      "К женщинам, достигшим 55-летнего возраста, и мужчинам, достигшим 60-летнего возраста, если они имеют инвалидность 1 и 2 группы."
+    ],
+    correct: [0]
+  },
+  {
+    id: 219,
+    question: "Все имущество умершего считается выморочным, если…",
+    type: "single",
+    options: [
+      "Государству завещана только часть имущества.",
+      "Все наследники умершего признаны судебным решением недостойными наследниками.",
+      "Один из наследников отказался принять наследство без указания лиц, в пользу которых он отказывается от наследственного имущества."
+    ],
+    correct: [1]
+  },
+  {
+    id: 220,
+    question: "В случае смерти автора, состоящего в браке, создавшего произведение в период брака, принадлежащее ему исключительное право на произведение наследуется в следующем порядке…",
+    type: "single",
+    options: [
+      "Выделяется доля в общем совместном имуществе супругов, принадлежащая пережившему супругу, доля умершего автора входит в состав наследства.",
+      "Исключительное право на произведение переходит к наследникам, т.к. не является общим имуществом супругов.",
+      "Исключительное право на произведение в полном объёме переходит к пережившему супругу."
+    ],
+    correct: [1]
+  },
+  {
+    id: 221,
+    question: "Требуется ли при удостоверении завещания проверять принадлежность завещаемого имущества?",
+    type: "single",
+    options: [
+      "Требуется.",
+      "Не требуется.",
+      "Требуется проверять только принадлежность недвижимого имущества."
+    ],
+    correct: [1]
+  },
+  {
+    id: 222,
+    question: "Оценка стоимости наследственного имущества производится исходя из стоимости наследуемого имущества на день…",
+    type: "single",
+    options: [
+      "Выдачи свидетельства о праве на наследство.",
+      "Открытия наследства.",
+      "Принятия наследства."
+    ],
+    correct: [1]
+  },
+  {
+    id: 223,
+    question: "Совместное завещание утрачивает силу…",
+    type: "single",
+    options: [
+      "Только в случае расторжения брака.",
+      "В случае расторжения брака или признания брака недействительным как до, так и после смерти одного из супругов.",
+      "В случае расторжения брака или признания брака недействительным до смерти одного из супругов."
+    ],
+    correct: [1]
+  },
+  {
+    id: 224,
+    question: "Вправе ли стороны наследственного договора передавать права и обязанности по нему?",
+    type: "single",
+    options: [
+      "Не вправе.",
+      "Вправе.",
+      "Вправе, с согласия другой стороны договора."
+    ],
+    correct: [0]
+  },
+  {
+    id: 225,
+    question: "Обязан ли нотариус осуществлять видеофиксацию процедуры заключения наследственного договора?",
+    type: "single",
+    options: [
+      "Обязан при любых обстоятельствах.",
+      "Не обязан.",
+      "Обязан, если стороны наследственного договора не заявили возражение против этого."
+    ],
+    correct: [2]
+  },
+  {
+    id: 226,
+    question: "Сторонами брачного договора могут являться:",
+    type: "single",
+    options: [
+      "Бывшие супруги.",
+      "Лица, вступающие в брак.",
+      "Все варианты являются верными."
+    ],
+    correct: [1]
+  },
+  {
+    id: 227,
+    question: "Брачным договором супруги не вправе:",
+    type: "single",
+    options: [
+      "Изменить установленный законом режим совместной собственности.",
+      "Определить имущество, которое будет передано каждому из супругов в случае расторжения брака.",
+      "Урегулировать вопросы предоставления содержания своим несовершеннолетним детям.",
+      "Определить свои права и обязанности по взаимному содержанию."
+    ],
+    correct: [2]
+  },
+  {
+    id: 228,
+    question: "В случае смерти одного из супругов свидетельство о праве собственности на долю в общем имуществе супругов в отношении недвижимого имущества выдаётся нотариусом:",
+    type: "single",
+    options: [
+      "По месту открытия наследства.",
+      "По месту нахождения имущества.",
+      "По месту жительства пережившего супруга.",
+      "Любым нотариусом по выбору пережившего супруга."
+    ],
+    correct: [0]
+  },
+  {
+    id: 229,
+    question: "Заключение между родителями соглашения о порядке осуществления родительских прав родителем, проживающим отдельно от ребёнка:",
+    type: "single",
+    options: [
+      "Правомерно.",
+      "Неправомерно, так как порядок участия родителя в воспитании ребёнка определяют только органы опеки.",
+      "Неправомерно, так как порядок участия раздельно проживающего родителя в воспитании ребёнка определяет суд.",
+      "Неправомерно, так как порядок участия раздельно проживающего родителя в воспитании ребёнка не может являться предметом соглашения."
+    ],
+    correct: [0]
+  },
+  {
+    id: 230,
+    question: "Минимальный размер алиментов на несовершеннолетних детей, уплачиваемых по соглашению об уплате алиментов:",
+    type: "single",
+    options: [
+      "Должен составлять на одного ребёнка не менее чем одну четверть заработка и (или) иного дохода родителей, на двух детей – не менее чем одну треть, на трёх и более детей – не менее чем половину заработка.",
+      "Должен составлять на одного ребёнка не менее чем одну треть заработка и (или) иного дохода родителей, на двух и более детей – не менее чем половину заработка.",
+      "Законом не установлен, определяется самими сторонами с учётом материального положения плательщика и потребностей ребёнка."
+    ],
+    correct: [0]
+  },
+  {
+    id: 231,
+    question: "Согласие супруга, удостоверенное нотариусом, необходимо для:",
+    type: "single",
+    options: [
+      "Отчуждения вторым супругом транспортного средства, приобретённого в браке по договору купли-продажи.",
+      "Отчуждения вторым супругом квартиры, приобретённой в браке на основании приватизации.",
+      "Совершения вторым супругом сделки, требующей государственной регистрации в установленном законом порядке."
+    ],
+    correct: [2]
+  },
+  {
+    id: 232,
+    question: "Договоры с участием несовершеннолетнего до 14 лет подписывает его законный представитель:",
+    type: "single",
+    options: [
+      "Родители.",
+      "Попечитель.",
+      "Бабушка, дедушка."
+    ],
+    correct: [0]
+  },
+  {
+    id: 233,
+    question: "Договоры с участием несовершеннолетнего после 14 лет подписывает:",
+    type: "single",
+    options: [
+      "Несовершеннолетний.",
+      "Несовершеннолетний с согласия родителей.",
+      "Родители несовершеннолетнего."
+    ],
+    correct: [1]
+  },
+  {
+    id: 234,
+    question: "Вправе ли ребёнок самостоятельно обратиться за защитой своих прав и законных интересов в суд?",
+    type: "single",
+    options: [
+      "Не вправе.",
+      "Вправе.",
+      "Вправе только после достижения 14-летнего возраста."
+    ],
+    correct: [2]
+  },
+  {
+    id: 235,
+    question: "Имеет ли нотариально удостоверенное соглашение об уплате алиментов силу исполнительного листа?",
+    type: "single",
+    options: [
+      "Нет.",
+      "Да.",
+      "Только в случае, если соглашение заключалось в рамках судебного процесса."
+    ],
+    correct: [1]
+  },
+  {
+    id: 236,
+    question: "Может ли производиться удержание алиментов в сумме, превышающей 50% дохода лица, обязанного уплачивать алименты, если такие условия предусмотрены нотариально удостоверенным соглашением об уплате алиментов?",
+    type: "single",
+    options: [
+      "Да, может.",
+      "Нет, не может никогда.",
+      "Только в случае, если алименты уплачиваются на трёх и более детей.",
+      "Только в случае, если лицо, обязанное уплачивать алименты, не находится в браке с матерью детей."
+    ],
+    correct: [0]
+  },
+  {
+    id: 237,
+    question: "Сохраняется ли дееспособность, приобретённая в результате заключения брака гражданином до достижения 18-летнего возраста в случае расторжения брака до достижения 18 лет?",
+    type: "single",
+    options: [
+      "Да.",
+      "Нет.",
+      "Сохраняется в случае, если получено соответствующее распоряжение органов опеки и попечительства."
+    ],
+    correct: [0]
+  },
+  {
+    id: 238,
+    question: "Соглашение об уплате алиментов имеет силу исполнительного листа, если:",
+    type: "single",
+    options: [
+      "Подписано сторонами.",
+      "Удостоверено нотариусом.",
+      "Подписано сторонами и согласовано с судебным приставом-исполнителем.",
+      "Утверждено судом."
+    ],
+    correct: [1]
+  },
+  {
+    id: 239,
+    question: "Изменения к брачному договору и расторжение брачного договора могут быть заключены:",
+    type: "single",
+    options: [
+      "В нотариальной форме по соглашению сторон.",
+      "В простой письменной форме.",
+      "Только в нотариальной форме.",
+      "В устной форме."
+    ],
+    correct: [2]
+  },
+  {
+    id: 240,
+    question: "Действие брачного договора прекращается:",
+    type: "single",
+    options: [
+      "С момента прекращения брака, за исключением тех обязательств, которые предусмотрены договором на период после расторжения брака.",
+      "С момента прекращения брака.",
+      "С момента отказа одной из сторон от исполнения договора."
+    ],
+    correct: [0]
+  },
+  {
+    id: 241,
+    question: "Права и обязанности супругов возникают:",
+    type: "single",
+    options: [
+      "С начала совместного проживания и ведения общего хозяйства.",
+      "Со дня государственной регистрации заключения брака в органах записи актов гражданского состояния.",
+      "Венчания."
+    ],
+    correct: [1]
+  },
+  {
+    id: 242,
+    question: "К имуществу, нажитому супругами во время брака, относятся:",
+    type: "single",
+    options: [
+      "Имущество, полученное одним из супругов во время брака в дар.",
+      "Пенсии и пособия.",
+      "Вещи индивидуального пользования."
+    ],
+    correct: [1]
+  },
+  {
+    id: 243,
+    question: "Раздел общего имущества супругов может быть произведён:",
+    type: "single",
+    options: [
+      "Только в период брака.",
+      "Как в период брака, так и после его расторжения.",
+      "В течение месяца после расторжения брака.",
+      "Если раздел имущества предусмотрен брачным договором."
+    ],
+    correct: [1]
+  },
+  {
+    id: 244,
+    question: "Может ли в соглашении об уплате алиментов быть предусмотрено сочетание различных способов уплаты алиментов?",
+    type: "single",
+    options: [
+      "Может.",
+      "Не может.",
+      "Зависит от желания получателя алиментов.",
+      "При наличии согласия органов опеки и попечительства."
+    ],
+    correct: [0]
+  },
+  {
+    id: 245,
+    question: "С какого момента прекращается брак при его расторжении в суде?",
+    type: "single",
+    options: [
+      "Со дня вступления решения суда в законную силу.",
+      "С момента регистрации развода в органах ЗАГС.",
+      "Спустя три дня после принятия решения судом.",
+      "С момента, указанного в заявлении о расторжении брака."
+    ],
+    correct: [0]
+  },
+  {
+    id: 246,
+    question: "Каждый участник ООО обязан информировать своевременно общество об изменении сведений:",
+    type: "multiple",
+    options: [
+      "О своём имени или наименовании, месте жительства или месте нахождения.",
+      "Об адресе электронной почты (при его наличии).",
+      "Об используемой им усиленной квалифицированной электронной подписи, имеющей метку доверенного времени, необходимой для участия в заочном голосовании.",
+      "О принадлежащих ему долях в уставном капитале общества."
+    ],
+    correct: [0, 1, 3]
+  },
+  {
+    id: 247,
+    question: "В соответствии с Федеральным законом «Об обществах с ограниченной ответственностью» общее собрание участников общества является:",
+    type: "single",
+    options: [
+      "Высшим органом общества.",
+      "Высшим органом управления общества.",
+      "Высшим коллегиальным исполнительным органом общества.",
+      "Высшим коллегиальным исполнительным органом управления общества."
+    ],
+    correct: [0]
+  },
+  {
+    id: 248,
+    question: "В соответствии с ФЗ «Об ООО» при голосовании по вопросу об избрании председательствующего на заседании общего собрания участников каждый участник общества имеет:",
+    type: "single",
+    options: [
+      "Один голос.",
+      "Число голосов, пропорциональное его доле в уставном капитале общества.",
+      "Число голосов, пропорциональное его доле в уставном капитале общества, если законом или уставом общества не предусмотрено иное.",
+      "Один голос, если уставом общества не предусмотрено иное."
+    ],
+    correct: [3]
+  },
+  {
+    id: 249,
+    question: "Устав общества с ограниченной ответственностью:",
+    type: "single",
+    options: [
+      "Может содержать отличные от установленных Федеральным законом «Об ООО» положения о способах, позволяющих достоверно установить лиц, принимающих дистанционное участие в заседании, и способах подписания бюллетеней для голосования в электронной форме.",
+      "Не может содержать отличные от установленных Федеральным законом «Об ООО» положения о способах, позволяющих достоверно установить лиц, принимающих дистанционное участие в заседании, и способах подписания бюллетеней для голосования в электронной форме.",
+      "Должен содержать отличные от установленных Федеральным законом «Об ООО» положения о способах, позволяющих достоверно установить лиц, принимающих дистанционное участие в заседании, и способах подписания бюллетеней для голосования в электронной форме."
+    ],
+    correct: [0]
+  },
+  {
+    id: 250,
+    question: "Компетенция совета директоров (наблюдательного совета) общества с ограниченной ответственностью определяется:",
+    type: "single",
+    options: [
+      "Гражданским кодексом Российской Федерации и Федеральным законом «Об обществах с ограниченной ответственностью».",
+      "Федеральным законом «Об обществах с ограниченной ответственностью» и уставом общества.",
+      "Федеральным законом «Об обществах с ограниченной ответственностью», уставом общества и внутренними документами общества.",
+      "Уставом общества в соответствии с Федеральным законом «Об обществах с ограниченной ответственностью»."
+    ],
+    correct: [3]
+  },
+  {
+    id: 251,
+    question: "В соответствии с Федеральным законом «Об обществах с ограниченной ответственностью» заседание общего собрания участников общества с дистанционным участием:",
+    type: "multiple",
+    options: [
+      "Может проводиться с возможностью присутствия в месте его проведения.",
+      "Должно проводиться с возможностью присутствия в месте его проведения.",
+      "Может не проводиться с возможностью присутствия в месте его проведения.",
+      "Может проводиться без возможности присутствия в месте его проведения, если уставом общества предусмотрена такая возможность."
+    ],
+    correct: [1, 3]
+  },
+  {
+    id: 252,
+    question: "В соответствии с Основами законодательства РФ о нотариате при совершении исполнительной надписи о взыскании задолженности по нотариально удостоверённому договору займа нотариус:",
+    type: "single",
+    options: [
+      "Обязан проверить достоверность документа, подтверждающего передачу (перечисление) заёмщику денежных средств.",
+      "Обязан проверить достоверность документа, подтверждающего перечисление заёмщику денежных средств путём направления запроса, подписанного квалифицированной электронной подписью нотариуса, в кредитную организацию через единую информационную систему нотариата.",
+      "Обязан проверить достоверность документа, подтверждающего перечисление заёмщику денежных средств, способом, исключающим любые сомнения в его достоверности, в том числе, путём направления запроса в кредитную организацию."
+    ],
+    correct: [1]
+  },
+  {
+    id: 253,
+    question: "Требования в отношении предоставления в Росфинмониторинг по его запросу информации о совершённых нотариальных действиях, распространяются:",
+    type: "single",
+    options: [
+      "На случаи совершения нотариусом исполнительных надписей, принятия в депозит денежных сумм и ценных бумаг, удостоверения медиативных соглашений, а также удостоверения иных сделок, перечень которых установлен уполномоченным органом по согласованию с ФНП.",
+      "Только на случаи совершения исполнительных надписей и удостоверения медиативных соглашений при поступлении запроса в связи с проверкой операций на предмет их связи с легализацией доходов или финансированием терроризма.",
+      "На случаи совершения нотариусом исполнительных надписей, принятия в депозит денежных сумм и ценных бумаг, удостоверения медиативных соглашений при поступлении запроса в связи с проверкой операций на предмет легализации доходов или финансирования терроризма.",
+      "Только на случаи принятия в депозит денежных сумм и ценных бумаг."
+    ],
+    correct: [1]
+  },
+  {
+    id: 254,
+    question: "Требования в отношении информирования уполномоченного органа о принятых мерах по замораживанию (блокированию) денежных средств или иного имущества, распространяются:",
+    type: "single",
+    options: [
+      "Только на случаи совершения нотариусами нотариального действия по принятию в депозит денежных сумм и ценных бумаг.",
+      "Только на случаи совершения нотариусами нотариальных действий по совершению исполнительных надписей и удостоверению медиативных соглашений.",
+      "На случаи совершения нотариусами нотариальных действий по совершению исполнительных надписей и удостоверению медиативных соглашений.",
+      "На случаи совершения нотариусами нотариальных действий по принятию в депозит денежных сумм и ценных бумаг, совершению исполнительных надписей и удостоверению медиативных соглашений."
+    ],
+    correct: [0]
+  },
+  {
+    id: 255,
+    question: "Сроки рассмотрения нотариусами обращений граждан предусмотрены:",
+    type: "single",
+    options: [
+      "Федеральным законом от 02.05.2006 № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации».",
+      "Основами законодательства Российской Федерации о нотариате.",
+      "Регламентом совершения нотариусами нотариальных действий, утверждённым приказом Минюста России от 30.08.2017 № 156.",
+      "Правилами нотариального делопроизводства, если законодательством Российской Федерации не установлены иные сроки исполнения."
+    ],
+    correct: [3]
+  },
+  {
+    id: 256,
+    question: "Ответ по существу на поступившее обращение даётся заявителю:",
+    type: "single",
+    options: [
+      "Не позднее 7 календарных дней со дня регистрации обращения.",
+      "Не позднее 30 календарных дней со дня регистрации документа.",
+      "Не позднее 30 календарных дней со дня регистрации документа, если законодательством Российской Федерации не установлены иные сроки исполнения.",
+      "В сроки, установленные Основами законодательства РФ о нотариате, если Федеральным законом от 02.05.2006 № 59-ФЗ и иными нормативными актами не установлены иные сроки исполнения."
+    ],
+    correct: [2]
+  },
+  {
+    id: 257,
+    question: "Брачный возраст устанавливается:",
+    type: "multiple",
+    options: [
+      "В восемнадцать лет по общему правилу.",
+      "В шестнадцать лет по общему правилу.",
+      "При наличии уважительных причин орган местного самоуправления вправе разрешить вступление в брак лицам, достигшим шестнадцати лет.",
+      "При наличии уважительных причин орган местного самоуправления вправе разрешить вступление в брак лицам, достигшим четырнадцати лет."
+    ],
+    correct: [0, 2]
+  },
+  {
+    id: 258,
+    question: "При каких условиях орган опеки и попечительства вправе предъявить иск о взыскании алиментов на несовершеннолетних детей к родителям:",
+    type: "multiple",
+    options: [
+      "При наличии у них достаточного имущества.",
+      "При отсутствии соглашения родителей об уплате алиментов.",
+      "При предъявлении иска в суд.",
+      "При непредоставлении содержания родителями своим несовершеннолетним детям."
+    ],
+    correct: [1, 3]
+  },
+  {
+    id: 259,
+    question: "При необходимости постоянного управления имуществом подопечного:",
+    type: "multiple",
+    options: [
+      "По решению суда назначается доверительный управляющий имуществом подопечного.",
+      "По решению органа опеки и попечительства назначается доверительный управляющий имуществом подопечного.",
+      "Органом опеки и попечительства заключается договор с доверительным управляющим имуществом подопечного.",
+      "Опекун и попечитель сохраняет свои полномочия в отношении того имущества, которое не передано в доверительное управление.",
+      "Опекун и попечитель не сохраняет свои полномочия в отношении того имущества, которое не передано в доверительное управление."
+    ],
+    correct: [2, 3]
+  },
+  {
+    id: 260,
+    question: "При отсутствии условия о выкупной цене в договоре постоянной ренты, по которому имущество передано за плату под выплату постоянной ренты, выкуп осуществляется:",
+    type: "single",
+    options: [
+      "По цене, соответствующей полугодовой сумме подлежащей выплате ренты.",
+      "По цене, которая определяется отчётом об оценке.",
+      "По цене, соответствующей годовой сумме подлежащей выплате ренты.",
+      "По цене, которая при сравнимых обстоятельствах обычно взимается за аналогичное имущество.",
+      "По цене, соответствующей трёхлетней сумме подлежащей выплате ренты."
+    ],
+    correct: [2]
+  },
+  {
+    id: 261,
+    question: "Случайная гибель или случайное повреждение имущества, переданного под выплату пожизненной ренты:",
+    type: "single",
+    options: [
+      "Не освобождают плательщика ренты от обязательства выплачивать её на условиях, предусмотренных договором пожизненной ренты, если иное не предусмотрено договором.",
+      "Может быть основанием для освобождения плательщика ренты от обязательств выплачивать её на условиях договора пожизненной ренты.",
+      "Освобождает плательщика ренты от обязательств выплачивать её на условиях, предусмотренных договором пожизненной ренты.",
+      "Не освобождают плательщика ренты от обязательства выплачивать её на условиях, предусмотренных договором пожизненной ренты.",
+      "Освобождает плательщика ренты от обязательств выплачивать её на условиях договора, если иное не предусмотрено договором пожизненной ренты."
+    ],
+    correct: [3]
+  },
+  {
+    id: 262,
+    question: "В договоре доверительного управления имуществом должны быть указаны:",
+    type: "multiple",
+    options: [
+      "Состав имущества, передаваемого в доверительное управление.",
+      "Размер и форма вознаграждения управляющему, если выплата вознаграждения предусмотрена договором.",
+      "Срок действия договора.",
+      "Наименование и местонахождение юридического лица или имя и место жительства гражданина, в интересах которых осуществляется управление имуществом.",
+      "Способы обеспечения исполнения обязательств сторонами."
+    ],
+    correct: [0, 1, 2, 3]
+  },
+  {
+    id: 263,
+    question: "Суд может освободить исполнителя завещания от его обязанностей:",
+    type: "multiple",
+    options: [
+      "При наличии обстоятельств, свидетельствующих о ненадлежащем исполнении своих обязанностей исполнителем завещания.",
+      "По требованию наследников.",
+      "По требованию нотариуса.",
+      "В любом случае.",
+      "При наличии обстоятельств, свидетельствующих об угрозе нарушения охраняемых законом интересов наследников в результате действий (бездействия) исполнителя завещания."
+    ],
+    correct: [0, 1, 4]
+  },
+  {
+    id: 264,
+    question: "Нотариус удостоверяет тождественность личности гражданина с лицом, изображённым на фотографии:",
+    type: "single",
+    options: [
+      "Изготовленной нотариусом.",
+      "Представленной этим гражданином.",
+      "Представленной этим гражданином либо изготовленной нотариусом.",
+      "Расположенной в аккаунте социальной сети, принадлежащей Заявителю.",
+      "Размещённой в документе, удостоверяющем личность гражданина."
+    ],
+    correct: [1]
+  },
+  {
+    id: 265,
+    question: "В подтверждение обстоятельств, изложенных в заявлении о морском протесте, капитан судна одновременно с заявлением обязан представить:",
+    type: "single",
+    options: [
+      "Нотариусу для ознакомления судовой журнал и заверенную капитаном судна выписку из судового журнала.",
+      "Консульскому должностному лицу для ознакомления судовой журнал и заверенную капитаном судна выписку из судового журнала.",
+      "Компетентному должностному лицу иностранного государства для ознакомления судовой журнал и заверенную капитаном судна выписку из судового журнала.",
+      "Нотариусу или консульскому должностному лицу либо компетентному должностному лицу иностранного государства для ознакомления судовой журнал и заверенную капитаном судна выписку из судового журнала.",
+      "Нотариусу или консульскому должностному лицу для ознакомления судовой журнал и заверенную капитаном судна выписку из судового журнала."
+    ],
+    correct: [3]
+  },
+  {
+    id: 266,
+    question: "Государственные награды, которые не могут быть переданы в порядке наследования, передаются правопреемникам:",
+    type: "single",
+    options: [
+      "В наём.",
+      "В дар.",
+      "В собственность.",
+      "На хранение.",
+      "В безвозмездное пользование."
+    ],
+    correct: [3]
+  },
+  {
+    id: 267,
+    question: "Нотариальному удостоверению подлежит предварительный договор, если:",
+    type: "multiple",
+    options: [
+      "Основной договор заключается в отношении движимого имущества.",
+      "Основной договор заключается в отношении недвижимого имущества.",
+      "Это установлено Гражданским кодексом РФ, Основами законодательства РФ о нотариате или иными нормативными актами.",
+      "Это установлено сторонами в предварительном договоре.",
+      "Основной договор подлежит нотариальному удостоверению."
+    ],
+    correct: [3, 4]
+  },
+  {
+    id: 268,
+    question: "Если после фактического прекращения семейных отношений и ведения общего хозяйства супруги совместно имущество не приобретали, суд может произвести:",
+    type: "single",
+    options: [
+      "Раздел лишь того имущества, которое являлось их общей совместной собственностью ко времени прекращения ведения общего хозяйства.",
+      "Раздел имущества.",
+      "Расторжение брака.",
+      "Раздел всего имущества, которое являлось их общей совместной собственностью ко времени прекращения ведения общего хозяйства.",
+      "Раздел лишь того имущества, которое являлось их общей совместной собственностью ко времени расторжения брака."
+    ],
+    correct: [0]
+  },
+  {
+    id: 269,
+    question: "В случае явки супруга, объявленного судом умершим или признанного безвестно отсутствующим:",
+    type: "multiple",
+    options: [
+      "Брак может быть восстановлен по совместному заявлению супругов.",
+      "Брак не может быть восстановлен.",
+      "Брак может быть восстановлен при условии отмены соответствующих судебных решений.",
+      "Брак может быть восстановлен по заявлению одного из супругов.",
+      "Брак может быть восстановлен при условии расторжения нового брака другого супруга."
+    ],
+    correct: [0, 2]
+  },
+  {
+    id: 270,
+    question: "В состав алиментных обязательств других членов семьи, помимо супругов и детей, включаются:",
+    type: "multiple",
+    options: [
+      "Обязанности опекунов и попечителей по содержанию своих воспитанников.",
+      "Обязанности дедушки и бабушки по содержанию своих внуков.",
+      "Обязанности племянников по содержанию дяди и тёти.",
+      "Обязанности пасынков и падчериц содержать отчима и мачеху.",
+      "Обязанности братьев и сестёр по содержанию своих несовершеннолетних и нетрудоспособных совершеннолетних братьев и сестёр."
+    ],
+    correct: [1, 3, 4]
+  },
+  {
+    id: 271,
+    question: "Земельный участок является:",
+    type: "multiple",
+    options: [
+      "Недвижимой вещью, которая представляет собой часть земной поверхности.",
+      "Недвижимой вещью, которая имеет характеристики, позволяющие определить её в качестве индивидуально определённой вещи.",
+      "Недвижимой вещью как объект права собственности и иных прав на землю.",
+      "Недвижимой вещью, которая не имеет характеристик, позволяющих определить её в качестве индивидуально определённой вещи.",
+      "Недвижимой вещью как объект права собственности."
+    ],
+    correct: [0, 1, 2]
+  },
+  {
+    id: 272,
+    question: "В случае отмены дарения одаряемый обязан возвратить подаренную вещь:",
+    type: "single",
+    options: [
+      "В любом случае.",
+      "Если она сохранилась в натуре к моменту отмены дарения.",
+      "Если она частично сохранилась в натуре к моменту отмены дарения.",
+      "Если она была передана ему по договору дарения.",
+      "В случаях, предусмотренных договором."
+    ],
+    correct: [1]
+  },
+  {
+    id: 273,
+    question: "Договор пожизненного содержания с иждивением является:",
+    type: "multiple",
+    options: [
+      "Односторонне обязывающим.",
+      "Реальным, безвозмездным.",
+      "Реальным, возмездным.",
+      "Консенсуальным, возмездным.",
+      "Двусторонне обязывающим."
+    ],
+    correct: [0, 2]
+  },
+  {
+    id: 274,
+    question: "Сделки с переданным в доверительное управление имуществом доверительный управляющий совершает:",
+    type: "single",
+    options: [
+      "От своего имени, не указывая при этом, что он действует в качестве такого управляющего.",
+      "От своего имени.",
+      "От имени учредителя управления.",
+      "От своего имени, указывая при этом, что он действует в качестве такого управляющего.",
+      "От имени учредителя управления, указывая при этом, что он действует в качестве такого управляющего."
+    ],
+    correct: [3]
+  },
+  {
+    id: 275,
+    question: "Договором залога или в отношении залога, возникающего на основании закона, законом:",
+    type: "single",
+    options: [
+      "Может быть предусмотрен залог имущества, которое залогодатель приобретёт в будущем.",
+      "Не может быть предусмотрен залог имущества, которое залогодатель приобретёт в будущем.",
+      "Может быть предусмотрен залог имущества, которое залогодержатель приобретёт в будущем.",
+      "Может быть предусмотрен залог имущества, которое залогодатель или залогодержатель приобретёт в будущем.",
+      "Может быть предусмотрен залог имущества, которое залогодатель имел в прошлом."
+    ],
+    correct: [0]
+  },
+  {
+    id: 276,
+    question: "К возникающему залогу жилого дома или квартиры, приобретённого с использованием кредитных средств банка или иной кредитной организации либо средств целевого займа:",
+    type: "single",
+    options: [
+      "Соответственно применяются правила о залоге недвижимого имущества, возникающем в силу закона.",
+      "Соответственно применяются правила о залоге недвижимого имущества, возникающем в силу договора.",
+      "Соответственно не применяются правила о залоге недвижимого имущества, возникающем в силу договора.",
+      "Соответственно применяются правила о залоге имущества, возникающем в силу договора.",
+      "Соответственно применяются правила о залоге имущества, возникающем в силу закона."
+    ],
+    correct: [1]
+  },
+  {
+    id: 277,
+    question: "Договор, на основании которого производится уступка по сделке, требующей государственной регистрации:",
+    type: "single",
+    options: [
+      "Может быть зарегистрирован в порядке, установленном для регистрации этой сделки, если иное не установлено законом.",
+      "Должен быть зарегистрирован в порядке, установленном для регистрации этой сделки.",
+      "Должен быть зарегистрирован в порядке, установленном для регистрации этой сделки, если иное не установлено законом.",
+      "Может быть зарегистрирован в порядке, установленном для регистрации этой сделки."
+    ],
+    correct: [2]
+  },
+  {
+    id: 278,
+    question: "Недействительность отдельных распоряжений, содержащихся в завещании:",
+    type: "single",
+    options: [
+      "Влечёт недействительность остальной части завещания.",
+      "Не затрагивает остальной части завещания, если можно предположить, что она была бы включена в завещание и при отсутствии распоряжений, являющихся недействительными.",
+      "Влечёт недействительность остальной части завещания, в том числе, если можно предположить, что она была бы включена в завещание и при отсутствии недействительных распоряжений.",
+      "Не затрагивает остальной части завещания, если можно предположить, что она не была бы включена в завещание при отсутствии недействительных распоряжений.",
+      "Влечёт недействительность остальной части завещания, если можно предположить, что она была бы включена в завещание при отсутствии недействительных распоряжений."
+    ],
+    correct: [1]
+  },
+  {
+    id: 279,
+    question: "Свидетельство о праве собственности на половину общего имущества, нажитого в период брака:",
+    type: "single",
+    options: [
+      "Выдаётся, если брак был расторгнут или признан недействительным на дату принятия наследства.",
+      "Выдаётся, если брак был расторгнут или признан недействительным на дату открытия наследства.",
+      "Не выдаётся, если брак был расторгнут или признан недействительным на дату открытия наследства.",
+      "Не выдаётся, если брак был расторгнут или признан недействительным на дату принятия наследства.",
+      "Не выдаётся, если брак был расторгнут или признан недействительным после даты открытия наследства."
+    ],
+    correct: [2]
+  },
+  {
+    id: 280,
+    question: "В соответствии со статьями 87, 88.1 Основ законодательства РФ о нотариате денежные средства, принятые нотариусом в депозит или на депонирование, должны храниться:",
+    type: "single",
+    options: [
+      "На непубличном депозитном счёте нотариуса.",
+      "На публичном депозитном счёте нотариуса.",
+      "На номинальном счёте нотариуса.",
+      "На счёте-эскроу нотариуса.",
+      "На валютном депозитном счёте нотариуса."
+    ],
+    correct: [1]
+  },
+  {
+    id: 281,
+    question: "В сумму, подлежащую взысканию по исполнительной надписи, включаются:",
+    type: "multiple",
+    options: [
+      "Сумма задолженности.",
+      "Сумма неустойки по кредитным договорам.",
+      "Сумма неустойки (за исключением неустойки по кредитным договорам).",
+      "Сумма расходов, понесённых взыскателем в связи с совершением исполнительной надписи.",
+      "Сумма расходов, понесённых взыскателем в связи с извещением должника."
+    ],
+    correct: [0, 2, 3]
+  },
+  {
+    id: 282,
+    question: "Нотариус не устанавливает из предъявленного векселя следующую информацию:",
+    type: "multiple",
+    options: [
+      "О соответствии представленного для протеста документа требованиям вексельного законодательства для квалификации его в качестве векселя.",
+      "О наличии у заявителя статуса законного держателя векселя, наступлении или пропуске срока для совершения протеста.",
+      "О месте предъявления требования по векселю.",
+      "Об отказе обязанного по векселю лица произвести платёж, акцепт или совершить иные предусмотренные вексельным законодательством действия.",
+      "О предъявлении векселя векселедержателем обязанному по векселю лицу."
+    ],
+    correct: [3, 4]
+  },
+  {
+    id: 283,
+    question: "Подпись векселедателя может быть воспроизведена:",
+    type: "single",
+    options: [
+      "Только собственноручно.",
+      "С использованием факсимильной подписи.",
+      "Собственноручно, а также с использованием факсимильной подписи в случаях, предусмотренных законом.",
+      "Любым аналогом собственноручной подписи.",
+      "Собственноручно, а также любым аналогом собственноручной подписи, за исключением случаев, предусмотренных законом."
+    ],
+    correct: [0]
+  },
+  {
+    id: 284,
+    question: "Индоссант – это:",
+    type: "single",
+    options: [
+      "Ценная бумага.",
+      "Лицо, передающее свои права по ценной бумаге посредством индоссамента.",
+      "Передаточная надпись на документарной ценной бумаге.",
+      "Права на ценную бумагу.",
+      "Лицо, принимающее права по ценной бумаге посредством индоссамента."
+    ],
+    correct: [1]
+  },
+  {
+    id: 285,
+    question: "Восстановление пропущенного срока принятия наследства и признание наследника принявшим наследство:",
+    type: "single",
+    options: [
+      "Исключает для наследника необходимость совершения каких-либо других дополнительных действий по принятию наследства.",
+      "Влечёт для наследника необходимость подачи заявления о принятии наследства.",
+      "Лишь в некоторых случаях исключает для наследника необходимость совершения каких-либо других дополнительных действий по принятию наследства.",
+      "Исключает для наследника необходимость совершения дополнительных действий только если на это есть прямое указание в решении суда.",
+      "Влечёт для наследника необходимость подачи заявления о принятии наследства в случае, если на это есть прямое указание в решении суда."
+    ],
+    correct: [0]
+  },
+  {
+    id: 286,
+    question: "Иностранные граждане и лица без гражданства при наследовании по праву Российской Федерации (ст. 1224 ГК РФ) принимают наследство:",
+    type: "single",
+    options: [
+      "В судебном порядке.",
+      "В общем порядке.",
+      "В упрощённом порядке.",
+      "В порядке, установленном международным договором.",
+      "В особом порядке."
+    ],
+    correct: [1]
+  },
+  {
+    id: 287,
+    question: "Электронный образ документа на бумажном носителе формируется нотариусом:",
+    type: "single",
+    options: [
+      "В виде одного файла в формате docx.",
+      "В виде нескольких файлов изображений в формате PDF.",
+      "В виде одного файла изображения в формате PDF.",
+      "В виде одного файла в формате doc.",
+      "В виде нескольких файлов в формате rtf."
+    ],
+    correct: [2]
+  },
+  {
+    id: 288,
+    question: "Заёмщиком в договоре конвертируемого займа является:",
+    type: "single",
+    options: [
+      "Третье лицо, не являющееся участником общества с ограниченной ответственностью.",
+      "Участник общества с ограниченной ответственностью.",
+      "Общество с ограниченной ответственностью.",
+      "Публично-правовое образование.",
+      "Любой участник гражданского оборота."
+    ],
+    correct: [2]
+  }
+];
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let state = {
+  questions: [],      // current question set (might be filtered)
+  current: 0,
+  answered: {},       // {qId: {selected: [], isCorrect: bool}}
+  score: 0,
+  wrongIds: []        // ids of wrong answers
+};
+
+const STORAGE_KEY = 'quiz_state_v3';
+const ERRORS_KEY = 'quiz_all_errors';
+
+// Сохраняем ошибки глобально (между сессиями)
+function saveGlobalErrors(ids) {
+  try { localStorage.setItem(ERRORS_KEY, JSON.stringify(ids)); } catch(e) {}
+}
+function loadGlobalErrors() {
+  try { return JSON.parse(localStorage.getItem(ERRORS_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      current: state.current,
+      answered: state.answered,
+      score: state.score,
+      wrongIds: state.wrongIds,
+      questionIds: state.questions.map(q => q.id),
+      mode: state.mode
+    }));
+    // Копим ошибки глобально
+    if (state.wrongIds.length) {
+      const global = loadGlobalErrors();
+      const merged = [...new Set([...global, ...state.wrongIds])];
+      saveGlobalErrors(merged);
+    }
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    if (!s) return false;
+    // verify same question set
+    const ids = state.questions.map(q => q.id);
+    if (JSON.stringify(ids) !== JSON.stringify(s.questionIds)) return false;
+    state.current = s.current;
+    state.answered = s.answered;
+    state.score = s.score;
+    state.wrongIds = s.wrongIds;
+    return true;
+  } catch(e) { return false; }
+}
+
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+function renderQuestion() {
+  const q = state.questions[state.current];
+  if (!q) return;
+
+  const total = state.questions.length;
+  const num = state.current + 1;
+  const answeredCount = Object.keys(state.answered).length;
+
+  document.getElementById('q-num').textContent = num;
+  document.getElementById('q-total').textContent = total;
+  document.getElementById('score-display').textContent = state.score;
+  document.getElementById('progress-fill').style.width = (answeredCount / total * 100).toFixed(1) + '%';
+
+  document.getElementById('q-type-badge').textContent =
+    q.type === 'single' ? 'Один ответ' : 'Несколько ответов';
+  document.getElementById('q-text').textContent = q.question;
+
+  const container = document.getElementById('options-container');
+  container.className = 'options' + (q.type === 'single' ? ' single-mode' : '');
+  container.innerHTML = '';
+
+  const prev = state.answered[q.id];
+  const labels = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З'];
+
+  q.options.forEach((opt, i) => {
+    const el = document.createElement('div');
+    el.className = 'option';
+    el.dataset.index = i;
+
+    if (prev) {
+      el.classList.add('disabled');
+      const isCorrect = q.correct.includes(i);
+      const isSelected = prev.selected.includes(i);
+
+      if (isSelected && isCorrect) el.classList.add('correct');
+      else if (isSelected && !isCorrect) el.classList.add('wrong');
+      else if (!isSelected && isCorrect) el.classList.add('missed');
+    }
+
+    el.innerHTML = `
+      <div class="opt-marker">${labels[i] || i+1}</div>
+      <div class="opt-text">${opt}</div>
+    `;
+
+    if (!prev) {
+      el.addEventListener('click', () => toggleOption(el, q));
+    }
+    container.appendChild(el);
+  });
+
+  // restore selection before answer
+  if (!prev) {
+    // no previous answer — all clean
+  }
+
+  // banner
+  const banner = document.getElementById('result-banner');
+  if (prev) {
+    banner.className = 'result-banner ' + (prev.isCorrect ? 'correct' : 'wrong');
+    if (prev.isCorrect) {
+      banner.textContent = '✓ Верно!';
+    } else {
+      const correctLabels = q.correct.map(i => labels[i] || i+1).join(', ');
+      banner.textContent = `✗ Неверно. Правильный ответ: ${correctLabels}`;
+    }
+  } else {
+    banner.className = 'result-banner';
+  }
+
+  // buttons
+  const btnCheck = document.getElementById('btn-check');
+  const btnNext = document.getElementById('btn-next');
+  if (prev) {
+    btnCheck.style.display = 'none';
+    btnNext.style.display = '';
+    btnNext.textContent = state.current < total - 1 ? 'Дальше →' : 'Результат →';
+  } else {
+    btnCheck.style.display = '';
+    btnNext.style.display = 'none';
+  }
+}
+
+function toggleOption(el, q) {
+  if (q.type === 'single') {
+    document.querySelectorAll('.option.selected').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  } else {
+    el.classList.toggle('selected');
+  }
+}
+
+function getSelectedAnswers() {
+  const selected = [];
+  document.querySelectorAll('.option.selected').forEach(el => {
+    selected.push(parseInt(el.dataset.index));
+  });
+  return selected;
+}
+
+function checkAnswer() {
+  const q = state.questions[state.current];
+  const selected = getSelectedAnswers();
+  if (selected.length === 0) {
+    document.getElementById('btn-check').style.animation = 'none';
+    document.getElementById('btn-check').style.background = '#e87070';
+    setTimeout(() => {
+      document.getElementById('btn-check').style.background = '';
+    }, 400);
+    return;
+  }
+
+  const correct = q.correct.slice().sort();
+  const sel = selected.slice().sort();
+  const isCorrect = JSON.stringify(sel) === JSON.stringify(correct);
+
+  state.answered[q.id] = { selected, isCorrect };
+  if (isCorrect) {
+    state.score++;
+  } else {
+    if (!state.wrongIds.includes(q.id)) state.wrongIds.push(q.id);
+  }
+
+  saveState();
+  renderQuestion();
+}
+
+function goToNext(skipCheck) {
+  const q = state.questions[state.current];
+  const prev = state.answered[q.id];
+
+  if (!prev && !skipCheck) {
+    checkAnswer();
+    return;
+  }
+
+  if (state.current >= state.questions.length - 1) {
+    showFinish();
+    return;
+  }
+  state.current++;
+  saveState();
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToPrev() {
+  if (state.current > 0) {
+    state.current--;
+    saveState();
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function updateProgress() {
+  const total = state.questions.length;
+  const answered = Object.keys(state.answered).length;
+  document.getElementById('progress-fill').style.width = (answered / total * 100).toFixed(1) + '%';
+}
+
+// ─────────────────────────────────────────────
+// FINISH
+// ─────────────────────────────────────────────
+function showFinish() {
+  stopTimer();
+  // записать сессию в статистику
+  const answered = Object.keys(state.answered).length;
+  recordSession(state.mode || 'all', state.score, state.questions.length, answered);
+  document.getElementById('quiz-screen').style.display = 'none';
+  const fs = document.getElementById('finish-screen');
+  fs.style.display = 'block';
+
+  const total = state.questions.length;
+  const correct = state.score;
+  const wrong = total - correct;
+  const pct = Math.round(correct / total * 100);
+
+  document.getElementById('stat-correct').textContent = correct;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-pct').textContent = pct + '%';
+  document.getElementById('stat-total').textContent = total;
+
+  if (pct >= 90) { document.getElementById('finish-icon').textContent = '🏆'; document.getElementById('finish-title').textContent = 'Отлично!'; }
+  else if (pct >= 70) { document.getElementById('finish-icon').textContent = '👍'; document.getElementById('finish-title').textContent = 'Хороший результат'; }
+  else if (pct >= 50) { document.getElementById('finish-icon').textContent = '📚'; document.getElementById('finish-title').textContent = 'Нужно поработать'; }
+  else { document.getElementById('finish-icon').textContent = '💪'; document.getElementById('finish-title').textContent = 'Продолжайте учиться'; }
+
+  document.getElementById('finish-sub').textContent = `Вы правильно ответили на ${correct} из ${total} вопросов`;
+
+  const wrongSection = document.getElementById('wrong-section');
+  const wrongPills = document.getElementById('wrong-pills');
+  const btnRetryWrong = document.getElementById('btn-retry-wrong');
+
+  if (state.wrongIds.length > 0) {
+    wrongSection.classList.remove('hidden');
+    wrongPills.innerHTML = state.wrongIds.sort((a,b)=>a-b).map(id => `<span class="wrong-pill">${id}</span>`).join('');
+    btnRetryWrong.style.display = '';
+  } else {
+    wrongSection.classList.add('hidden');
+    btnRetryWrong.style.display = 'none';
+  }
+
+  // Если режим «Ошибки» и прошли без ошибок — очищаем
+  if (state.mode === 'errors' && state.wrongIds.length === 0) {
+    saveGlobalErrors([]);
+  }
+}
+
+function restartQuiz() {
+  startMode(state.mode || 'all');
+}
+
+function retryWrong() {
+  startMode('errors');
+}
+
+
+// ─────────────────────────────────────────────
+// STATISTICS
+// ─────────────────────────────────────────────
+const STATS_KEY = 'quiz_stats_v1';
+
+function defaultStats() {
+  return {
+    sessions: 0,
+    totalAnswered: 0,
+    totalCorrect: 0,
+    byMode: {
+      express: { n: 0, correct: 0, total: 0, best: 0 },
+      exam:    { n: 0, correct: 0, total: 0, best: 0 },
+      errors:  { n: 0, correct: 0, total: 0, best: 0 },
+      all:     { n: 0, correct: 0, total: 0, best: 0 }
+    },
+    qWrong:   {},  // { id: count }
+    qCorrect: {},  // { id: count }
+    firstUsed: Date.now(),
+    lastUsed: Date.now()
+  };
+}
+
+function loadStats() {
+  try { return Object.assign(defaultStats(), JSON.parse(localStorage.getItem(STATS_KEY) || '{}')); }
+  catch(e) { return defaultStats(); }
+}
+
+function saveStatsObj(s) {
+  try { localStorage.setItem(STATS_KEY, JSON.stringify(s)); } catch(e) {}
+}
+
+function recordSession(mode, correct, total, answered) {
+  const s = loadStats();
+  s.sessions++;
+  s.totalAnswered += answered;
+  s.totalCorrect  += correct;
+  s.lastUsed = Date.now();
+  const m = s.byMode[mode] || { n:0, correct:0, total:0, best:0 };
+  m.n++;
+  m.correct += correct;
+  m.total   += total;
+  const pct = total ? Math.round(correct / total * 100) : 0;
+  if (pct > m.best) m.best = pct;
+  s.byMode[mode] = m;
+
+  // per-question tracking from current answered state
+  Object.entries(state.answered).forEach(([id, data]) => {
+    const numId = parseInt(id);
+    if (data.isCorrect) {
+      s.qCorrect[numId] = (s.qCorrect[numId] || 0) + 1;
+    } else {
+      s.qWrong[numId] = (s.qWrong[numId] || 0) + 1;
+    }
+  });
+
+  saveStatsObj(s);
+}
+
+function showStats() {
+  document.getElementById('menu-screen').style.display = 'none';
+  document.getElementById('stats-screen').style.display = '';
+  renderStats();
+  window.scrollTo({ top: 0 });
+}
+
+function renderStats() {
+  const s = loadStats();
+  const globalErrors = loadGlobalErrors();
+
+  // accuracy ring
+  const total = s.totalCorrect + (s.totalAnswered - s.totalCorrect);
+  const acc = s.totalAnswered ? Math.round(s.totalCorrect / s.totalAnswered * 100) : 0;
+  document.getElementById('stat-acc-pct').textContent = acc + '%';
+  document.getElementById('stat-total-correct').textContent = s.totalCorrect;
+  document.getElementById('stat-total-wrong').textContent = s.totalAnswered - s.totalCorrect;
+  document.getElementById('stat-sessions').textContent = s.sessions;
+  document.getElementById('stat-total-answered').textContent = s.totalAnswered;
+
+  // animate ring: circumference = 2*pi*50 ≈ 314
+  setTimeout(() => {
+    const offset = 314 - (314 * acc / 100);
+    document.getElementById('acc-ring-fill').style.strokeDashoffset = offset;
+  }, 100);
+
+  // mastered questions: correct > wrong AND correct >= 2
+  const seenIds = new Set([
+    ...Object.keys(s.qCorrect).map(Number),
+    ...Object.keys(s.qWrong).map(Number)
+  ]);
+  const masteredIds = [...seenIds].filter(id => {
+    const c = s.qCorrect[id] || 0;
+    const w = s.qWrong[id] || 0;
+    return c >= 2 && c > w;
+  });
+
+  const masteredPct = Math.round(masteredIds.length / 288 * 100);
+  const seenPct = Math.round(seenIds.size / 288 * 100);
+  const errorPct = Math.round(globalErrors.length / 288 * 100);
+
+  document.getElementById('stat-mastered-n').textContent = masteredIds.length;
+  document.getElementById('stat-mastered-pct').textContent = masteredPct + '%';
+  document.getElementById('stat-seen-n').textContent = seenIds.size;
+  document.getElementById('stat-seen-pct').textContent = seenPct + '%';
+  document.getElementById('stat-errors-n').textContent = globalErrors.length;
+  document.getElementById('stat-errors-pct').textContent = globalErrors.length ? errorPct + '%' : '';
+
+  setTimeout(() => {
+    document.getElementById('bar-mastered').style.width = masteredPct + '%';
+    document.getElementById('bar-seen').style.width = seenPct + '%';
+    document.getElementById('bar-errors').style.width = errorPct + '%';
+  }, 100);
+
+  // by mode
+  ['express','exam','errors','all'].forEach(mode => {
+    const m = s.byMode[mode] || { n:0, correct:0, total:0, best:0 };
+    const pct = m.total ? Math.round(m.correct / m.total * 100) : 0;
+    document.getElementById('ms-' + mode + '-sessions').textContent = m.n + (m.n === 1 ? ' сессия' : m.n >= 2 && m.n <= 4 ? ' сессии' : ' сессий');
+    document.getElementById('ms-' + mode + '-best').textContent = m.best ? m.best + '%' : '—';
+    setTimeout(() => {
+      document.getElementById('ms-' + mode + '-bar').style.width = (m.best || 0) + '%';
+    }, 150);
+  });
+
+  // hard questions: most wrong answers, min 2
+  const hardItems = Object.entries(s.qWrong)
+    .filter(([,n]) => n >= 2)
+    .sort(([,a],[,b]) => b - a)
+    .slice(0, 7);
+
+  const hardSection = document.getElementById('hard-section');
+  const hardList = document.getElementById('hard-list');
+  if (hardItems.length) {
+    hardSection.style.display = '';
+    hardList.innerHTML = hardItems.map(([id, n]) => {
+      const q = quizData.find(q => q.id === parseInt(id));
+      const text = q ? q.question.slice(0, 80) + (q.question.length > 80 ? '…' : '') : 'Вопрос ' + id;
+      return '<div class="hard-item">' +
+        '<div class="hard-num">№' + id + '</div>' +
+        '<div class="hard-q">' + text + '</div>' +
+        '<div class="hard-badge">✗ ' + n + '</div>' +
+        '</div>';
+    }).join('');
+  } else {
+    hardSection.style.display = 'none';
+  }
+
+  // dates
+  const fmt = ts => ts ? new Date(ts).toLocaleDateString('ru-RU') : '—';
+  document.getElementById('stat-first-date').textContent = fmt(s.firstUsed);
+  document.getElementById('stat-last-date').textContent  = fmt(s.lastUsed);
+
+  // menu desc
+  document.getElementById('menu-stats-desc').textContent =
+    s.sessions ? s.sessions + ' сессий · точность ' + acc + '%' : 'Ваш прогресс и результаты';
+}
+
+function resetStats() {
+  if (!confirm('Сбросить всю статистику? Это действие нельзя отменить.')) return;
+  try {
+    localStorage.removeItem(STATS_KEY);
+    localStorage.removeItem(ERRORS_KEY);
+    localStorage.removeItem(STORAGE_KEY);
+  } catch(e) {}
+  renderStats();
+}
+
+// ─────────────────────────────────────────────
+// TIMER
+// ─────────────────────────────────────────────
+let timerInterval = null;
+let timerSeconds = 0;
+
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  timerSeconds = seconds;
+  const pill = document.getElementById('timer-pill');
+  const disp = document.getElementById('timer-display');
+  pill.style.display = '';
+  pill.classList.remove('danger');
+  updateTimerDisplay();
+
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 300) pill.classList.add('danger');
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      showFinish();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  document.getElementById('timer-pill').style.display = 'none';
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(Math.max(0, timerSeconds) / 60);
+  const s = Math.max(0, timerSeconds) % 60;
+  document.getElementById('timer-display').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+
+// ─────────────────────────────────────────────
+// MENU
+// ─────────────────────────────────────────────
+function showMenu() {
+  stopTimer();
+  document.getElementById('menu-screen').style.display = '';
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('finish-screen').style.display = 'none';
+  document.getElementById('stats-screen').style.display = 'none';
+  updateMenuStats();
+  // обновляем строку описания статистики
+  try { const s = loadStats(); const acc = s.totalAnswered ? Math.round(s.totalCorrect/s.totalAnswered*100) : 0;
+    document.getElementById('menu-stats-desc').textContent = s.sessions ? s.sessions + ' сессий · точность ' + acc + '%' : 'Ваш прогресс и результаты'; } catch(e) {}
+  window.scrollTo({ top: 0 });
+}
+
+function updateMenuStats() {
+  const errors = loadGlobalErrors();
+  const errBtn = document.getElementById('menu-errors-btn');
+  const errDesc = document.getElementById('menu-errors-desc');
+  if (errors.length > 0) {
+    errDesc.textContent = errors.length + ' вопросов с ошибками';
+    errBtn.classList.remove('disabled');
+  } else {
+    errDesc.textContent = 'Ошибок пока нет';
+    errBtn.classList.add('disabled');
+  }
+
+  // общая статистика
+  const statsEl = document.getElementById('menu-stats');
+  const allAnswered = Object.keys(JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}').answered || {}).length;
+  statsEl.innerHTML = errors.length
+    ? 'Накоплено ошибок: <b>' + errors.length + '</b> из 288'
+    : 'Ошибок не накоплено 🎉';
+}
+
+function goToMenu() {
+  if (confirm('Вернуться в главное меню? Прогресс текущего теста сохранится.')) {
+    showMenu();
+  }
+}
+
+function startMode(mode) {
+  stopTimer();
+  state.mode = mode;
+  state.answered = {};
+  state.score = 0;
+  state.wrongIds = [];
+
+  if (mode === 'express') {
+    const shuffled = [...quizData].sort(() => Math.random() - 0.5);
+    state.questions = shuffled.slice(0, 25);
+  } else if (mode === 'exam') {
+    const shuffled = [...quizData].sort(() => Math.random() - 0.5);
+    state.questions = shuffled.slice(0, 100);
+  } else if (mode === 'errors') {
+    const errorIds = loadGlobalErrors();
+    if (!errorIds.length) { showMenu(); return; }
+    state.questions = quizData.filter(q => errorIds.includes(q.id)).sort(() => Math.random() - 0.5);
+  } else {
+    state.questions = [...quizData];
+  }
+
+  state.current = 0;
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+
+  document.getElementById('menu-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  document.getElementById('finish-screen').style.display = 'none';
+
+  if (mode === 'exam') startTimer(60 * 60);
+  else stopTimer();
+
+  renderQuestion();
+  window.scrollTo({ top: 0 });
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+function init() {
+  // Если есть сохранённая сессия — предложить продолжить
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+  if (saved && saved.questionIds && saved.questionIds.length) {
+    const ids = saved.questionIds;
+    const qs = quizData.filter(q => ids.includes(q.id));
+    if (qs.length && saved.current < qs.length) {
+      state.questions = qs;
+      state.current = saved.current;
+      state.answered = saved.answered;
+      state.score = saved.score;
+      state.wrongIds = saved.wrongIds || [];
+      state.mode = saved.mode || 'all';
+      document.getElementById('menu-screen').style.display = 'none';
+      document.getElementById('quiz-screen').style.display = 'block';
+      if (state.mode === 'exam') startTimer(60 * 60);
+      renderQuestion();
+      return;
+    }
+  }
+  showMenu();
+}
+
+
+// ─────────────────────────────────────────────
+// PWA — Service Worker (работает при открытии через HTTPS)
+// ─────────────────────────────────────────────
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  const SW = `
+const CACHE = 'notariat-v1';
+self.addEventListener('install', e => { self.skipWaiting(); });
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.filter(k => k !== 'notariat-v1').map(k => caches.delete(k)))
+  ));
+  self.clients.claim();
+});
+self.addEventListener('fetch', e => {
+  e.respondWith(
+    caches.match(e.request).then(cached => {
+      const fresh = fetch(e.request).then(res => {
+        caches.open('notariat-v1').then(c => c.put(e.request, res.clone()));
+        return res;
+      });
+      return cached || fresh;
+    })
+  );
+});`;
+  try {
+    const blob = new Blob([SW], {type:'text/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+  } catch(e) {}
+}
+
+// ─────────────────────────────────────────────
+// iOS «Добавить на экран» — подсказка
+// ─────────────────────────────────────────────
+function showIOSPrompt() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone = window.navigator.standalone === true;
+  const dismissed = localStorage.getItem('pwa_prompt_dismissed');
+  if (!isIOS || isStandalone || dismissed) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'pwa-banner';
+  banner.innerHTML = [
+    '<div style="display:flex;align-items:flex-start;gap:12px;">',
+    '<div style="font-size:26px;line-height:1;flex-shrink:0;">📲</div>',
+    '<div style="flex:1;">',
+    '<div style="font-weight:700;font-size:14px;margin-bottom:4px;">Добавить на экран «Домой»</div>',
+    '<div style="font-size:12px;color:#555;line-height:1.5;">Нажмите <b>Поделиться</b> ⎋ внизу Safari &rarr; <b>На экран «Домой»</b> — приложение откроется без браузера, прогресс сохранится надёжно</div>',
+    '</div>',
+    '<button id="pwa-close" style="background:none;border:none;font-size:18px;cursor:pointer;color:#aaa;padding:0;flex-shrink:0;">✕</button>',
+    '</div>'
+  ].join('');
+  Object.assign(banner.style, {
+    position:'fixed', bottom:'80px', left:'12px', right:'12px',
+    background:'#fff', borderRadius:'14px', padding:'14px',
+    boxShadow:'0 4px 24px rgba(0,0,0,0.18)', zIndex:'200',
+    border:'1px solid rgba(0,0,0,0.09)', fontFamily:'Manrope,sans-serif',
+    animation:'slideUp 0.3s ease'
+  });
+  document.body.appendChild(banner);
+  document.getElementById('pwa-close').onclick = () => {
+    banner.remove();
+    localStorage.setItem('pwa_prompt_dismissed','1');
+  };
+  setTimeout(() => { if (banner.parentNode) banner.remove(); }, 15000);
+}
+
+setTimeout(showIOSPrompt, 2500);
+
+// ─────────────────────────────────────────────
+// PASSWORD LOCK
+// ─────────────────────────────────────────────
+const PWD_HASH = '33e558bacb44424d12f9e36d68236d78bc38b1742cec5d489b040e04b440e9a7';
+const PWD_KEY  = 'quiz_auth_v1';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkPassword() {
+  const val = document.getElementById('lock-input').value;
+  if (!val) return;
+  const hash = await sha256(val);
+  if (hash === PWD_HASH) {
+    localStorage.setItem(PWD_KEY, hash);
+    document.getElementById('lock-screen').style.display = 'none';
+    init();
+  } else {
+    const inp = document.getElementById('lock-input');
+    inp.classList.remove('shake');
+    void inp.offsetWidth;
+    inp.classList.add('shake');
+    document.getElementById('lock-error').textContent = 'Неверный пароль';
+    inp.value = '';
+    setTimeout(() => {
+      inp.classList.remove('shake');
+      document.getElementById('lock-error').textContent = '';
+    }, 1500);
+  }
+}
+
+function toggleEye() {
+  const inp = document.getElementById('lock-input');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+async function authCheck() {
+  const saved = localStorage.getItem(PWD_KEY);
+  if (saved === PWD_HASH) {
+    document.getElementById('lock-screen').style.display = 'none';
+    init();
+  } else {
+    // показываем экран пароля, init() не вызываем
+    setTimeout(() => document.getElementById('lock-input').focus(), 300);
+  }
+}
+
+authCheck();
+
+</script>
+</body>
+</html>
